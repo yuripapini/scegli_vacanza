@@ -246,45 +246,6 @@
       cursor: pointer; width: 100%;
     }
 
-    /* === MAPPA === */
-    .map-toggle {
-      display: flex; align-items: center; justify-content: center; gap: 7px;
-      background: rgba(255,255,255,0.07);
-      border: 1px solid rgba(255,255,255,0.15);
-      border-radius: 10px; padding: 10px 14px;
-      font-size: 0.82rem; font-weight: 600; cursor: pointer;
-      margin-top: 12px; color: #fff; width: 100%;
-      transition: background 0.2s;
-    }
-    .map-toggle:active { background: rgba(255,255,255,0.13); }
-
-    .map-section {
-      display: none; margin-top: 10px; border-radius: 14px; overflow: hidden;
-      border: 1px solid rgba(255,255,255,0.12);
-    }
-    .map-section.open { display: block; }
-
-    .map-section iframe {
-      width: 100%; height: 220px; border: none; display: block;
-    }
-
-    .map-joke {
-      background: rgba(255,107,107,0.08);
-      border: 1px solid rgba(255,107,107,0.25);
-      border-radius: 14px; padding: 16px; margin-top: 10px;
-      font-size: 0.85rem; line-height: 1.5; text-align: center; color: #ff9090;
-      font-style: italic;
-    }
-
-    .map-open-link {
-      display: block; text-align: center; margin-top: 8px;
-      background: rgba(255,255,255,0.06);
-      border-top: 1px solid rgba(255,255,255,0.1);
-      padding: 9px; font-size: 0.75rem; color: rgba(255,255,255,0.5);
-      text-decoration: none;
-    }
-    .map-open-link:active { background: rgba(255,255,255,0.12); }
-
     /* === ITINERARIO === */
     .itin-toggle {
       display: flex; align-items: center; justify-content: center; gap: 7px;
@@ -701,8 +662,6 @@ function startDestinations() {
 
 function renderDest() {
   const dest = DESTINATIONS[destIndex];
-  var old = document.getElementById('mapArea');
-  if (old) old.remove();
   var oldItin = document.getElementById('itinArea');
   if (oldItin) oldItin.remove();
   document.getElementById('destHeader').innerHTML =
@@ -713,20 +672,6 @@ function renderDest() {
       '<div class="dest-desc">' + dest.desc.replace(/\n\n/g, '<br><br>') + '</div>' +
     '</div>';
 
-  // Mappa sezione
-  var mapHtml = '';
-  if (dest.mapSrc === null) {
-    mapHtml = '<div class="map-joke">&#x1F5FA;&#xFE0F; Cosa vuoi la mappa del Tropicana?<br>Atterri, esci, giri a destra e sei gi\u00e0 in discoteca.</div>';
-  } else {
-    mapHtml =
-      '<button class="map-toggle" onclick="toggleMap()">&#x1F5FA;&#xFE0F; Vedi itinerario</button>' +
-      '<div class="map-section" id="mapSection">' +
-        '<iframe src="' + dest.mapSrc + '" loading="lazy" title="mappa"></iframe>' +
-        '<a class="map-open-link" href="' + dest.mapLink + '" target="_blank">&#x1F517; Apri itinerario su Google Maps</a>' +
-      '</div>';
-  }
-  document.getElementById('destHeader').insertAdjacentHTML('afterend', '<div id="mapArea">' + mapHtml + '</div>');
-
   // Itinerario sezione
   var itinHtml = '<button class="itin-toggle" onclick="toggleItin()">&#x1F4CB; Vedi itinerario giorno per giorno</button>' +
     '<div class="itin-section" id="itinSection">' +
@@ -734,7 +679,7 @@ function renderDest() {
       return '<div class="itin-day"><div class="itin-num">G' + (i + 1) + '</div><div class="itin-text">' + d + '</div></div>';
     }).join('') +
     '</div>';
-  document.getElementById('mapArea').insertAdjacentHTML('afterend', '<div id="itinArea">' + itinHtml + '</div>');
+  document.getElementById('destHeader').insertAdjacentHTML('afterend', '<div id="itinArea">' + itinHtml + '</div>');
 
   const saved = destRatings[destIndex] || {};
   document.getElementById('dest-params').innerHTML = PARAMS.map(function(p) {
@@ -751,11 +696,6 @@ function renderDest() {
   document.getElementById('btn-next-dest').textContent =
     destIndex === DESTINATIONS.length - 1 ? 'Avanti ai pesi \u2192' : 'Avanti \u2192';
   document.getElementById('dest-msg').textContent = '';
-}
-
-function toggleMap() {
-  var s = document.getElementById('mapSection');
-  if (s) s.classList.toggle('open');
 }
 
 function toggleItin() {
