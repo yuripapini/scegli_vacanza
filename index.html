@@ -424,7 +424,7 @@
     <div class="how-it-works">
       <div class="step-row">
         <div class="step-num">1</div>
-        <div>Ti viene mostrata ogni meta con una descrizione. Per ognuna valuti <strong>5 parametri</strong> da 1 a 5.</div>
+        <div>Ti viene mostrata ogni meta con una descrizione. Per ognuna valuti <strong>6 parametri</strong> da 1 a 5.</div>
       </div>
       <div class="step-row">
         <div class="step-num">2</div>
@@ -435,7 +435,7 @@
         <div>Ottieni la <strong>classifica personalizzata</strong> basata sui tuoi voti e pesi.</div>
       </div>
     </div>
-    <p>Ci sono <strong>5 mete</strong> da valutare.</p>
+    <p>Ci sono <strong>7 mete</strong> da valutare.</p>
     <div style="margin-top:18px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:13px 14px;font-size:0.75rem;opacity:0.6;line-height:1.5;font-style:italic;">
       ⚠️ Ogni dato qua dentro è realistico. Soltanto che non avevo voglia di impegnarmi troppo, quindi ha fatto tutto ChatGPT.
     </div>
@@ -514,6 +514,7 @@ const PARAMS = [
   { id: 'eco',  emoji: '\u{1F4B8}', label: 'Economicit\u00e0',         hint: '1=costosissima \u00b7 5=super economica' },
   { id: 'road', emoji: '\u{1F6FB}', label: 'On the road',              hint: '1=stanziale \u00b7 5=piena libert\u00e0' },
   { id: 'cool', emoji: '\u{1F60E}', label: 'Quanto \u00e8 fica',       hint: '1=per niente \u00b7 5=leggendaria' },
+  { id: 'want', emoji: '\u{1F929}', label: 'Quanto ci vuoi andare',    hint: '1=per niente \u00b7 5=voglio andarci ora', alwaysMax: true },
 ];
 
 const DESTINATIONS = [
@@ -615,6 +616,41 @@ const DESTINATIONS = [
       'Toronto + Niagara Falls (gita) o visita urbana di Montr\u00e9al.',
       'Toronto/Montr\u00e9al – ultimo giorno, quartieri caratteristici.',
       'Rientro – volo per l\'Italia.',
+    ]
+  },
+  { name: 'Argentina',                  flag: '\u{1F1E6}\u{1F1F7}', days: 15,
+    desc: 'Buenos Aires + Patagonia: tango, bistecche infinite, ghiacciai immensi e strade che non finiscono mai. On the road al massimo livello, cultura sudamericana esplosiva.\n\n\u{1F5FA}\uFE0F Distanza su strada: ~2.500 km\n\n\u{1F4B0} Costo stimato tutto compreso: ~2.200\u20133.200 \u20ac a persona.',
+    itinerary: [
+      'Arrivo a Buenos Aires – check-in, Caminito e La Boca, cena con tango show.',
+      'Buenos Aires – Palermo, San Telmo, mercato della Recoleta.',
+      'Buenos Aires – giornata libera, Tigre Delta opzionale.',
+      'Buenos Aires \u2192 El Calafate – volo interno, arrivo in Patagonia.',
+      'El Calafate – Glaciar Perito Moreno (trekking sul ghiacciaio opzionale).',
+      'El Calafate – altri viewpoint del ghiacciaio, lago Argentino.',
+      'El Calafate \u2192 El Chalten – capitale del trekking, prime camminate.',
+      'El Chalten – Laguna de los Tres (base Fitz Roy), vista mozzafiato.',
+      'El Chalten – Laguna Torre o giornata libera.',
+      'El Chalten \u2192 Puerto Natales (Chile) – confine, Torres del Paine.',
+      'Torres del Paine – Mirador Las Torres, trek nel parco.',
+      'Torres del Paine – Valle del Franc\u00e9s o lago Grey.',
+      'Puerto Natales \u2192 Punta Arenas \u2192 Buenos Aires – volo di rientro.',
+      'Buenos Aires – ultimo giorno, shopping e cena in steakhouse.',
+      'Rientro in Italia.',
+    ]
+  },
+  { name: 'Norvegia',                   flag: '\u{1F1F3}\u{1F1F4}', days: 10,
+    desc: 'Fiordi, aurore boreali, natura al livello massimo. Paesaggi che sembrano finti. Costosissima, fredda, e s\u00ec \u2014 su "facilit\u00e0 di scopare" prende 1. Per\u00f2 che foto.\n\n\u{1F5FA}\uFE0F Distanza su strada: ~1.800 km\n\n\u{1F4B0} Costo stimato tutto compreso: ~3.000\u20134.500 \u20ac a persona.',
+    itinerary: [
+      'Arrivo a Oslo – centro, Vigeland Park, aperitivo norvegese.',
+      'Oslo – Museo Kon-Tiki, Akershus, partenza verso Bergen in treno panoramico.',
+      'Bergen – Bryggen, funicolare sul Monte Fl\u00f8yen, mercato del pesce.',
+      'Bergen \u2192 Flam – treno di Fl\u00e5m (uno dei pi\u00f9 belli al mondo), fiordi.',
+      'Flam \u2192 Geiranger – Sognefjord, traghetto panoramico, cascate.',
+      'Geirangerfjord – escursioni, viewpoint del Trollstigen.',
+      'Geiranger \u2192 \u00c5lesund – citt\u00e0 art nouveau, isole atlantiche.',
+      'Tr\u00f8ndelag o Lofoten – volo interno, prime luci del nord (stagione permitting).',
+      'Lofoten – villaggi di pescatori, aurora boreale notturna.',
+      'Rientro – trasferimento a Oslo, volo per l\'Italia.',
     ]
   },
 ];
@@ -739,12 +775,15 @@ function prevDest() {
 }
 
 function buildWeights() {
-  document.getElementById('weights-container').innerHTML = PARAMS.map(function(p) {
+  document.getElementById('weights-container').innerHTML = PARAMS.filter(function(p) { return !p.alwaysMax; }).map(function(p) {
     var btns = [1,2,3,4,5].map(function(v) {
       return '<div class="wbtn" onclick="setWeight(\'' + p.id + '\',' + v + ')">' + v + '</div>';
     }).join('');
     return '<div class="weight-card"><div class="weight-card-label">' + p.emoji + ' ' + p.label + '</div><div class="weight-btns" id="wbtns-' + p.id + '">' + btns + '</div></div>';
-  }).join('');
+  }).join('') +
+  '<div style="margin-top:14px;background:rgba(255,215,0,0.08);border:1px solid rgba(255,215,0,0.25);border-radius:12px;padding:11px 14px;font-size:0.76rem;color:#ffd;opacity:0.85;line-height:1.5;">' +
+    '\u{1F929} <strong>Quanto ci vuoi andare</strong> ha sempre il peso massimo automaticamente.' +
+  '</div>';
   weightValues = {};
   document.getElementById('weights-msg').textContent = '';
 }
@@ -759,7 +798,7 @@ function setWeight(id, val) {
 
 function refreshWeightButtons() {
   var allUsed = Object.values(weightValues);
-  PARAMS.forEach(function(p) {
+  PARAMS.filter(function(p) { return !p.alwaysMax; }).forEach(function(p) {
     var chosen = weightValues[p.id];
     document.querySelectorAll('#wbtns-' + p.id + ' .wbtn').forEach(function(btn) {
       var v = parseInt(btn.textContent);
@@ -773,16 +812,20 @@ function backToLastDest() {
 }
 
 function calcResults() {
-  var missing = PARAMS.filter(function(p) { return !weightValues[p.id]; });
+  var weightedParams = PARAMS.filter(function(p) { return !p.alwaysMax; });
+  var alwaysMaxParams = PARAMS.filter(function(p) { return p.alwaysMax; });
+  var missing = weightedParams.filter(function(p) { return !weightValues[p.id]; });
   if (missing.length) {
     document.getElementById('weights-msg').textContent = 'Assegna importanza a: ' + missing.map(function(p) { return p.label; }).join(', ');
     return;
   }
-  var totalWeight = PARAMS.reduce(function(s, p) { return s + weightValues[p.id]; }, 0);
-  var maxScore    = 5 * totalWeight;
+  var maxWeight    = Math.max.apply(null, weightedParams.map(function(p) { return weightValues[p.id]; }));
+  var totalWeight  = weightedParams.reduce(function(s, p) { return s + weightValues[p.id]; }, 0) + alwaysMaxParams.length * maxWeight;
+  var maxScore     = 5 * totalWeight;
   var scored = DESTINATIONS.map(function(dest, idx) {
     var ratings = destRatings[idx] || {};
-    var score = PARAMS.reduce(function(s, p) { return s + (ratings[p.id] || 1) * weightValues[p.id]; }, 0);
+    var score = weightedParams.reduce(function(s, p) { return s + (ratings[p.id] || 1) * weightValues[p.id]; }, 0);
+    score += alwaysMaxParams.reduce(function(s, p) { return s + (ratings[p.id] || 1) * maxWeight; }, 0);
     return Object.assign({}, dest, { ratings: ratings, score: score, pct: Math.round((score / maxScore) * 100) });
   });
   scored.sort(function(a, b) { return b.score - a.score; });
