@@ -338,6 +338,20 @@
       cursor: pointer; width: 100%; font-family: 'Inter', 'Segoe UI', sans-serif;
       box-shadow: 0 4px 16px rgba(239,68,68,0.35);
     }
+    .sex-info-btn {
+      background: none; border: none; cursor: pointer;
+      font-size: 0.85rem; padding: 0 2px 0 5px;
+      opacity: 0.6; vertical-align: middle; line-height: 1;
+      transition: opacity 0.15s;
+    }
+    .sex-info-btn:hover { opacity: 1; }
+    .sex-info-table { width: 100%; border-collapse: collapse; margin-top: 14px; }
+    .sex-info-table td { padding: 9px 10px; font-size: 0.88rem; text-align: left; border-bottom: 1px solid rgba(255,255,255,0.07); }
+    .sex-info-table td:first-child { color: rgba(255,255,255,0.55); width: 55%; }
+    .sex-info-table td:last-child { font-weight: 700; color: #fff; }
+    .sex-info-table tr:last-child td { border-bottom: none; }
+    .sex-info-yes { color: #4ade80 !important; }
+    .sex-info-no  { color: var(--red) !important; }
 
     /* === ITINERARIO === */
     .itin-toggle {
@@ -515,6 +529,16 @@
   <div id="mete-panel-body"></div>
 </div>
 
+<!-- MODAL INFO SCOPABILITA' -->
+<div class="modal-overlay" id="sexInfoModal">
+  <div class="modal-box">
+    <span class="modal-emoji">&#x1F50E;</span>
+    <div class="modal-title" id="sexInfoTitle"></div>
+    <table class="sex-info-table" id="sexInfoTable"></table>
+    <button class="modal-btn" onclick="closeSexInfoModal()" style="margin-top:20px">Ok capito &#x1F44D;</button>
+  </div>
+</div>
+
 <!-- MODAL SCOPATA -->
 <div class="modal-overlay" id="sexModal">
   <div class="modal-box">
@@ -673,6 +697,24 @@ function flagImg(code, h) {
   return '<img src="https://flagcdn.com/w80/' + code + '.png" height="' + (h || 24) + '" style="border-radius:3px;vertical-align:middle;display:inline-block" alt="' + code.toUpperCase() + '">';
 }
 function destFlagImg(name, h) { return flagImg(DEST_CODES[name] || '', h); }
+
+const FIGA_LABELS = ['', 'SI ✅', 'NORMALE 😐', 'NO ❌', 'SONO NERE 🌍', 'SONO TRANS 🏳️‍⚧️'];
+
+const DEST_SEX_INFO = {
+  'USA \u2013 Route 66':            { figa: 2, darebbe: true  },
+  'USA \u2013 Grandi Parchi':       { figa: 3, darebbe: false },
+  'USA \u2013 West Coast & Parchi': { figa: 1, darebbe: true  },
+  'Mykonos':                        { figa: 1, darebbe: true  },
+  'Canada':                         { figa: 2, darebbe: false },
+  'Canada + USA Est':               { figa: 2, darebbe: true  },
+  'Argentina':                      { figa: 1, darebbe: true  },
+  'Toscana \u2013 Capo Nord':       { figa: 3, darebbe: false },
+  'Sudafrica':                      { figa: 4, darebbe: true  },
+  'Thailandia':                     { figa: 5, darebbe: true  },
+  'Per\u00f9':                       { figa: 2, darebbe: false },
+  'Namibia':                        { figa: 4, darebbe: false },
+  'Madagascar':                     { figa: 4, darebbe: true  },
+};
 
 const DEST_STATS = {
   'USA \u2013 Route 66':            { sex:3, exp:5, eco:3, road:5, cool:5 },
@@ -1027,7 +1069,7 @@ function renderDest() {
       return '<div class="star' + (saved[p.id] === v ? ' selected' : '') + '" onclick="setDestParam(\'' + p.id + '\',' + v + ')">' + v + '</div>';
     }).join('');
     return '<div class="param-card">' +
-      '<div class="param-label"><span>' + p.emoji + '</span>' + p.label + '<span class="param-hint">' + p.hint + '</span></div>' +
+      '<div class="param-label"><span>' + p.emoji + '</span>' + p.label + (p.id === 'sex' ? ' <button class="sex-info-btn" onclick="showSexInfo(' + destIndex + ')" title="Dettagli">&#x2139;&#xFE0F;</button>' : '') + '<span class="param-hint">' + p.hint + '</span></div>' +
       '<div class="stars" id="dstars-' + p.id + '">' + stars + '</div>' +
     '</div>';
   }).join('');
@@ -1057,6 +1099,22 @@ function setDestParam(paramId, val) {
 
 function closeModal() {
   document.getElementById('sexModal').classList.remove('open');
+}
+
+function showSexInfo(idx) {
+  var dest = DESTINATIONS[idx];
+  var info = DEST_SEX_INFO[dest.name] || {};
+  var figaLabel = FIGA_LABELS[info.figa] || '?';
+  var darebbe = info.darebbe;
+  document.getElementById('sexInfoTitle').textContent = '🔎 Scopabilit\u00e0 – ' + dest.name;
+  document.getElementById('sexInfoTable').innerHTML =
+    '<tr><td>C\u2019\u00e8 figa?</td><td>' + figaLabel + '</td></tr>' +
+    '<tr><td>Ce la darebbero?</td><td class="' + (darebbe ? 'sex-info-yes' : 'sex-info-no') + '">' + (darebbe ? 'SI 🤩' : 'NO 😔') + '</td></tr>';
+  document.getElementById('sexInfoModal').classList.add('open');
+}
+
+function closeSexInfoModal() {
+  document.getElementById('sexInfoModal').classList.remove('open');
 }
 
 function openMetePanel() {
