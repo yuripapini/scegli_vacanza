@@ -697,51 +697,7 @@ const PARAMS = [
 
 const DESTINATIONS = [
   { name: 'USA \u2013 Route 66',        flag: '\u{1F1FA}\u{1F1F8}', days: 15,
-    desc: 'Da Chicago a Santa Monica lungo la Mother Road: diner retr\u00f2, deserti rossi e insegne al neon. Ma il viaggio non finisce l\u00ec: Monument Valley, Horseshoe Bend, Antelope Canyon, Grand Canyon, Bryce Canyon e Death Valley sono tutti nell\u2019itinerario. L\u2019America on the road fatta per davvero.\n\n\u{1F5FA}\uFE0F Distanza totale: ~3.900\u20134.000 km\n\n\u{1F4B0} Costo stimato per persona (gruppo di 6, alta stagione):\nâœˆï¸ Volo A/R MXP\u2192ORD + LAX\u2192MXP: ~650 \u20ac\nðŸš— 2 auto nol. 15gg (young driver fee $28/gg + CDW inclusi): ~500 \u20ac\nâ›½ Carburante 2 auto (~4.200 km totali): ~160 \u20ac\nðŸžï¸ America the Beautiful Pass 2026 ($250/auto \u00d7 2 = $500): ~80 \u20ac\nðŸ¨ Alloggio 14 notti (3 camere, motel/hotel): ~640 \u20ac\nðŸ” Vitto 15 giorni: ~590 \u20ac\nðŸ“Š Totale stimato: ~2.620\u20132.820 \u20ac a persona.',
-    mapSrc: 'https://www.openstreetmap.org/export/embed.html?bbox=-118.5%2C34.5%2C-87.5%2C42.0&layer=mapnik',
-    mapLink: 'https://www.google.com/maps/dir/Chicago,+IL/Springfield,+IL/St.+Louis,+MO/Oklahoma+City,+OK/Amarillo,+TX/Albuquerque,+NM/Flagstaff,+AZ/Santa+Monica,+CA',
-    itinerary: [
-      'Volo Italia \u2192 Chicago – arrivo, ritiro auto, primo giro in centro e foto al cartello di inizio Route 66.',
-      'Chicago – Millennium Park, Lincoln Park, Navy Pier, Skydeck/Willis Tower, deep dish pizza.',
-      'Chicago \u2192 St. Louis – Joliet, Gemini Giant, vecchie stazioni di servizio, Springfield (IL), arrivo al Gateway Arch.',
-      'St. Louis \u2192 Tulsa – Cuba (murales), Devil\'s Elbow, Gary Gay Parita, Red Oak II, Galena (Kansas), arrivo a Tulsa.',
-      'Tulsa \u2192 Amarillo – Golden Driller, Oklahoma City (memorial), ingresso in Texas, Shamrock, cena ad Amarillo.',
-      'Amarillo \u2192 Albuquerque – Cadillac Ranch, MidPoint, Tucumcari, deviazione via Las Vegas (NM) e Santa Fe, arrivo ad Albuquerque.',
-      'Albuquerque – tour location Breaking Bad/Better Call Saul, pranzo in diner Route 66, trekking al Petroglyph, sera in citt\u00e0.',
-      'Albuquerque \u2192 Monument Valley – Four Corners Monument, tour in Monument Valley, Forrest Gump Point, notte in zona.',
-      'Monument Valley \u2192 Tuba City – Upper Antelope Canyon, Horseshoe Bend, deviazione pomeridiana a Flagstaff.',
-      'Tuba City \u2192 Grand Canyon \u2192 Panguitch – Grand Canyon (viewpoint e shuttle), poi trasferimento serale a Panguitch.',
-      'Bryce Canyon \u2192 Las Vegas – mattina a Bryce (Queen\'s Garden, punti panoramici), pomeriggio Strip di Las Vegas, serata in citt\u00e0.',
-      'Death Valley \u2192 Las Vegas – Zabriskie Point, Furnace Creek, dune; rientro a Las Vegas, giochi al casin\u00f2.',
-      'Las Vegas \u2192 Los Angeles – Seven Magic Mountains, guida nel deserto, arrivo a Santa Monica e relax in hotel.',
-      'Los Angeles – Bel-Air, Beverly Hills, Hollywood Boulevard, Hollywood Sign, Venice Canals, Griffith Observatory, cena da In-N-Out.',
-      'Mattina tra spiaggia (Malibu o Santa Monica Pier) e museo (Getty Center o Academy Museum), riconsegna auto, volo per l\'Italia.',
-    ]
-  },
-  { name: 'USA \u2013 Grandi Parchi',   flag: '\u{1F1FA}\u{1F1F8}', days: 15,
-    desc: 'Loop da Las Vegas in 15 giorni: Zion, Bryce Canyon, Antelope Canyon, Monument Valley, Grand Canyon, poi una deviazione a Los Angeles via Route 66 e si chiude con Death Valley. Ogni giorno un parco diverso, ogni panorama pi\u00f9 assurdo del precedente.\n\n\u{1F5FA}\uFE0F Distanza totale: ~2.800 km\n\n\u{1F4B0} Costo stimato per persona (gruppo di 6, alta stagione):\nâœˆï¸ Volo A/R MXP\u2192LAS (scalo) + LAS\u2192MXP: ~780 \u20ac\nðŸš— 2 auto nol. 15gg (young driver fee $28/gg + CDW): ~500 \u20ac\nâ›½ Carburante 2 auto (~2.800 km): ~115 \u20ac\nðŸžï¸ America the Beautiful Pass 2026 ($250/auto \u00d7 2 = $500): ~80 \u20ac\nðŸ¨ Alloggio 14 notti (3 camere, mix lodge parchi/motel): ~750 \u20ac\nðŸ” Vitto 15 giorni: ~600 \u20ac\nðŸ“Š Totale stimato: ~2.825\u20133.025 \u20ac a persona.',
-    mapSrc: 'https://www.openstreetmap.org/export/embed.html?bbox=-114.5%2C35.5%2C-109.0%2C44.5&layer=mapnik',
-    mapLink: 'https://www.google.com/maps/dir/Grand+Canyon+National+Park,+AZ/Zion+National+Park,+UT/Bryce+Canyon+National+Park,+UT/Yellowstone+National+Park,+WY',
-    itinerary: [
-      'Arrivo a Las Vegas – check-in, Strip, serata soft (jet lag).',
-      'Las Vegas \u2192 Zion National Park – ingresso nel parco, hiking Canyon Overlook o Angels Landing.',
-      'Zion – giornata intera tra le gole: Narrows, Emerald Pools, Observation Point.',
-      'Zion \u2192 Bryce Canyon – Navajo Loop, Queen\'s Garden, hoodoos al tramonto.',
-      'Bryce Canyon \u2192 Page – strada panoramica, arrivo a Horseshoe Bend al tramonto.',
-      'Page – Antelope Canyon (tour guidato), Lake Powell, sera in citt\u00e0.',
-      'Page \u2192 Monument Valley – scenic drive sulla US-163, tour Navajo, notte in zona.',
-      'Monument Valley \u2192 Grand Canyon South Rim – primo affaccio al canyon, tramonto sul Rim.',
-      'Grand Canyon – escursioni sul bordo, shuttle tra i viewpoint, Bright Angel Trail.',
-      'Grand Canyon \u2192 Williams \u2192 Flagstaff – inizio Route 66, atmosfera anni \'50.',
-      'Route 66 – Seligman, diner vintage, Kingman, burros di Oatman, deserto californiano.',
-      'Arrivo a Los Angeles – Santa Monica Pier, Venice Beach, relax e cena.',
-      'Los Angeles – Hollywood, Griffith Observatory, Beverly Hills, Sunset Boulevard.',
-      'Death Valley – Zabriskie Point, Furnace Creek, Badwater Basin; rientro a Las Vegas.',
-      'Las Vegas – mattina libera, riconsegna auto, volo di rientro in Italia.',
-    ]
-  },
-  { name: 'USA \u2013 West Coast & Parchi', flag: '\u{1F1FA}\u{1F1F8}', days: 14,
-    desc: 'Partenza da Los Angeles verso Joshua Tree e il deserto, poi Route 66 fino al Grand Canyon, Monument Valley e Antelope Canyon. Tappa a Las Vegas, poi salita a Sequoia tra gli alberi pi\u00f9 grandi del mondo e rientro a LA. 14 giorni equilibrati tra deserto, canyon e costa.\n\n\u{1F5FA}\uFE0F Distanza totale: ~3.200 km\n\n\u{1F4B0} Costo stimato per persona (gruppo di 6, alta stagione):\nâœˆï¸ Volo A/R MXP\u2192LAX + LAX\u2192MXP: ~720 \u20ac\nðŸš— 2 auto nol. 14gg (young driver fee $28/gg + CDW): ~465 \u20ac\nâ›½ Carburante 2 auto (~3.200 km): ~130 \u20ac\nðŸžï¸ America the Beautiful Pass 2026 ($250/auto \u00d7 2 = $500): ~80 \u20ac\nðŸ¨ Alloggio 13 notti (3 camere, hotel/motel): ~660 \u20ac\nðŸ” Vitto 14 giorni: ~580 \u20ac\nðŸ“Š Totale stimato: ~2.635\u20132.835 \u20ac a persona.',
+    desc: 'Da Chicago a Santa Monica lungo la Mother Road: diner retr\u00f2, deserti rossi e insegne al neon. Ma il viaggio non finisce l\u00ec: Monument Valley, Horseshoe Bend, Antelope Canyon, Grand Canyon, Bryce Canyon e Death Valley sono tutti nell\u2019itinerario. L\u2019America on the road fatta per davvero.\n\n\u{1F5FA}\uFE0F Distanza totale: ~3.900\u20134.000 km\n\n\u{1F4B0} Costo stimato per persona (gruppo di 6, alta stagione):\n\u2708\uFE0F Volo A/R MXP\u2192LAX: ~720 \u20ac\n\uD83D\uDE97 2 auto nol. 14gg (young driver fee $28/gg + CDW): ~465 \u20ac\n\u26FD Carburante 2 auto (~3.200 km): ~130 \u20ac\n\uD83C\uDFDE\uFE0F America the Beautiful Pass 2026 ($250/auto \u00d7 2): ~80 \u20ac\n\uD83C\uDFE8 Alloggio 13 notti (3 camere, hotel/motel): ~660 \u20ac\n\uD83C\uDF54 Vitto 14 giorni: ~580 \u20ac\n\uD83D\uDCCA Totale stimato: ~2.635\u20132.835 \u20ac a persona.',
     mapSrc: null,
     mapLink: null,
     itinerary: [
@@ -762,7 +718,7 @@ const DESTINATIONS = [
     ]
   },
   { name: 'Mykonos',                    flag: '\u{1F1EC}\u{1F1F7}', days: 5,
-    desc: 'Ah i paesaggi, i tramonti, l\'architettura cicladica... ma dai. Ma la figa? Non scopate ugualmente tanto.\n\n\u{1F5FA}\uFE0F Spostamenti interni (taxi/quad): ~100 km\n\n\u{1F4B0} Costo stimato per persona (gruppo di 6, luglio\u2013agosto):\nâœˆï¸ Volo A/R (low cost da Milano): ~220 \u20ac\nðŸ¨ Alloggio 5 notti (villa/3 camere, alta stagione): ~700 \u20ac\nðŸ½ï¸ Cibo + beach club + cocktail 5 giorni: ~500 \u20ac\nðŸ›µ Taxi e quad 5 giorni: ~150 \u20ac\nðŸ“Š Totale stimato: ~1.570\u20131.780 \u20ac a persona (spalla/bassa stagione: ~1.100\u20131.300 \u20ac).',
+    desc: 'Ah i paesaggi, i tramonti, l\'architettura cicladica... ma dai. Ma la figa? Non scopate ugualmente tanto.\n\n\u{1F5FA}\uFE0F Spostamenti interni (taxi/quad): ~100 km\n\n\u{1F4B0} Costo stimato per persona (gruppo di 6, luglio\u2013agosto):\n\u2708\uFE0F Volo A/R (low cost da Milano): ~220 \u20ac\n\uD83C\uDFE8 Alloggio 5 notti (villa/3 camere, alta stagione): ~700 \u20ac\n\uD83C\uDF7D\uFE0F Cibo + beach club + cocktail 5 giorni: ~500 \u20ac\n\uD83D\uDEF5 Taxi e quad: ~150 \u20ac\n\uD83D\uDCCA Totale stimato: ~1.570\u20131.780 \u20ac a persona (bassa stagione: ~1.100\u20131.300 \u20ac).',
     mapSrc: null,
     mapLink: null,
     itinerary: [
@@ -774,7 +730,7 @@ const DESTINATIONS = [
     ]
   },
   { name: 'Canada',                     flag: '\u{1F1E8}\u{1F1E6}', days: 12,
-    desc: 'Vancouver, la Sea to Sky Highway verso Whistler, il trekking ai tre laghi di Joffre, l\'Icefields Parkway con i ghiacciai, Jasper, Moraine Lake all\'alba, Banff e i dinosauri di Drumheller. 12 giorni nell\'ovest canadese tra foreste pluviali, laghi turchesi e badlands.\n\n\u{1F5FA}\uFE0F Distanza su strada: ~1.800 km\n\n\u{1F4B0} Costo stimato per persona (gruppo di 6, estate):\nâœˆï¸ Volo A/R MXP\u2192YVR + YYC\u2192MXP (one-way): ~950 \u20ac\nðŸš— 2 auto nol. 12gg (young driver fee CAD 30/gg + CDW): ~365 \u20ac\nâ›½ Carburante 2 auto (~1.800 km, CAD 1,80/L): ~80 \u20ac\nðŸžï¸ Canada Discovery Pass (CAD 150/auto \u00d7 2): ~35 \u20ac\nðŸ¨ Alloggio 11 notti (3 camere, mix hotel/lodge): ~500 \u20ac\nðŸ” Vitto 12 giorni (Canada \u00e8 caro): ~540 \u20ac\nðŸ“Š Totale stimato: ~2.470\u20132.670 \u20ac a persona.',
+    desc: 'Vancouver, la Sea to Sky Highway verso Whistler, il trekking ai tre laghi di Joffre, l\'Icefields Parkway con i ghiacciai, Jasper, Moraine Lake all\'alba, Banff e i dinosauri di Drumheller. 12 giorni nell\'ovest canadese tra foreste pluviali, laghi turchesi e badlands.\n\n\u{1F5FA}\uFE0F Distanza su strada: ~1.800 km\n\n\u{1F4B0} Costo stimato per persona (gruppo di 6, estate):\n\u2708\uFE0F Volo A/R MXP\u2192YVR + YYC\u2192MXP (one-way): ~950 \u20ac\n\uD83D\uDE97 2 auto nol. 12gg (young driver fee CAD 30/gg + CDW): ~365 \u20ac\n\u26FD Carburante 2 auto (~1.800 km): ~80 \u20ac\n\uD83C\uDFDE\uFE0F Canada Discovery Pass (CAD 150/auto \u00d7 2): ~35 \u20ac\n\uD83C\uDFE8 Alloggio 11 notti (3 camere, mix hotel/lodge): ~500 \u20ac\n\uD83C\uDF54 Vitto 12 giorni (Canada \u00e8 caro): ~540 \u20ac\n\uD83D\uDCCA Totale stimato: ~2.470\u20132.670 \u20ac a persona.',
     mapSrc: 'https://www.openstreetmap.org/export/embed.html?bbox=-128.0%2C49.0%2C-113.0%2C55.0&layer=mapnik',
     mapLink: 'https://www.google.com/maps/dir/Vancouver,+BC/Whistler,+BC/Jasper,+AB/Lake+Louise,+AB/Banff,+AB/Drumheller,+AB/Calgary,+AB',
     itinerary: [
@@ -793,7 +749,7 @@ const DESTINATIONS = [
     ]
   },
   { name: 'Argentina',                  flag: '\u{1F1E6}\u{1F1F7}', days: 15,
-    desc: 'Buenos Aires con tango e bistecche, poi un volo interno in Patagonia: il Perito Moreno che crolla in mare, El Chalten ai piedi del Fitz Roy e le Torres del Paine in Cile. 15 giorni tra cultura sudamericana esplosiva, ghiacciai immensi e trekking d\u2019alta quota.\n\n\u{1F5FA}\uFE0F Distanza su strada: ~2.500 km\n\n\u{1F4B0} Costo stimato per persona (gruppo di 6):\nâœˆï¸ Volo A/R MXP\u2192EZE(+scalo): ~1.100 \u20ac\nâœˆï¸ Volo interno EZE\u2192FTE (El Calafate): ~230 \u20ac\nðŸšŒ Transfer e remise in Patagonia (divisi 6): ~100 \u20ac\nðŸ¨ Alloggio 14 notti (mix hostel/hotel/lodge): ~810 \u20ac\nðŸ– Vitto 15gg (bistecche + trattorie): ~520 \u20ac\nðŸ”ï¸ Ingressi parchi (Torres del Paine + Los Glaciares): ~80 \u20ac\nðŸ“Š Totale stimato: ~2.840\u20133.040 \u20ac a persona.',
+    desc: 'Buenos Aires con tango e bistecche, poi un volo interno in Patagonia: il Perito Moreno che crolla in mare, El Chalten ai piedi del Fitz Roy e le Torres del Paine in Cile. 15 giorni tra cultura sudamericana esplosiva, ghiacciai immensi e trekking d\u2019alta quota.\n\n\u{1F5FA}\uFE0F Distanza su strada: ~2.500 km\n\n\u{1F4B0} Costo stimato per persona (gruppo di 6):\n\u2708\uFE0F Volo A/R MXP\u2192EZE (scalo): ~1.100 \u20ac\n\u2708\uFE0F Volo interno EZE\u2192FTE (El Calafate): ~230 \u20ac\n\uD83D\uDE8C Transfer e remise in Patagonia (\u00f76): ~100 \u20ac\n\uD83C\uDFE8 Alloggio 14 notti (mix hostel/hotel/lodge): ~810 \u20ac\n\uD83E\uDD69 Vitto 15gg (bistecche + trattorie): ~520 \u20ac\n\u26F0\uFE0F Ingressi parchi (Torres del Paine + Los Glaciares): ~80 \u20ac\n\uD83D\uDCCA Totale stimato: ~2.840\u20133.040 \u20ac a persona.',
     itinerary: [
       'Arrivo a Buenos Aires – check-in, Caminito e La Boca, cena con tango show.',
       'Buenos Aires – Palermo, San Telmo, mercato della Recoleta.',
@@ -813,7 +769,7 @@ const DESTINATIONS = [
     ]
   },
   { name: 'Toscana \u2013 Capo Nord',   flag: '\u{1F1EE}\u{1F1F9}\u{1F6D1}', days: 15,
-    desc: 'Si parte dalla Toscana e si sale in auto attraverso Belgio, Amsterdam, Amburgo, Copenaghen, Oslo, il Circolo Polare Artico, le Lofoten, Troms\u00f8 e si arriva a Capo Nord. Il punto pi\u00f9 a nord d\'Europa. Poi si torna pure. 7 paesi, 15 giorni, zero aerei. Follia pura.\n\n\u{1F5FA}\uFE0F Distanza totale: ~7.500\u20138.000 km\n\n\u{1F4B0} Costo stimato per persona (gruppo di 6, 2 auto proprie + ferragosto):\nðŸš— Carburante 2 auto (~8.000 km, mix \u20ac 1,75/L medio Europa): ~380 \u20ac\nâ›´ï¸ Traghetti interni (Lofoten + altri): ~70 \u20ac\nðŸ›£ï¸ Pedaggi e vignette (7 paesi): ~40 \u20ac\nðŸ¨ Alloggio 15 notti (3 camere, mix camping/hostel/hotel): ~870 \u20ac\nðŸ½ï¸ Vitto 15gg (Norvegia e Scandinavia sono carissime): ~820 \u20ac\nâš ï¸ Con auto a noleggio (young driver surcharge): aggiungere ~500 \u20ac/persona\nðŸ“Š Totale stimato (propria auto): ~2.180\u20132.380 \u20ac a persona.',
+    desc: 'Si parte dalla Toscana e si sale in auto attraverso Belgio, Amsterdam, Amburgo, Copenaghen, Oslo, il Circolo Polare Artico, le Lofoten, Troms\u00f8 e si arriva a Capo Nord. Il punto pi\u00f9 a nord d\'Europa. Poi si torna pure. 7 paesi, 15 giorni, zero aerei. Follia pura.\n\n\u{1F5FA}\uFE0F Distanza totale: ~7.500\u20138.000 km\n\n\u{1F4B0} Costo stimato per persona (gruppo di 6, 2 auto proprie + estate):\n\uD83D\uDE97 Carburante 2 auto (~8.000 km, media 1,75/L): ~380 \u20ac\n\u26F4\uFE0F Traghetti (Lofoten + breve Bognes): ~70 \u20ac\n\uD83D\uDEE3\uFE0F Pedaggi e vignette (7 paesi): ~40 \u20ac\n\uD83C\uDFE8 Alloggio 15 notti (3 camere, mix camping/hostel/hotel): ~870 \u20ac\n\uD83C\uDF7D\uFE0F Vitto 15gg (Norvegia e Scandinavia sono carissime): ~820 \u20ac\n\u26A0\uFE0F Con auto a noleggio (young driver surcharge): +~500 \u20ac/persona\n\uD83D\uDCCA Totale stimato (propria auto): ~2.180\u20132.380 \u20ac a persona.',
     itinerary: [
       'Toscana \u2192 Torino – partenza, valico alpino del Moncenisio o tunnel del Fr\u00e9jus, prima notte in Francia.',
       'Francia \u2192 Belgio – Lione, Bruxelles, belle autostrade nordeuropee.',
@@ -833,7 +789,7 @@ const DESTINATIONS = [
     ]
   },
   { name: 'Sudafrica',                  flag: '\u{1F1FF}\u{1F1E6}', days: 12,
-    desc: 'Johannesburg, poi dentro al Kruger in modalit\u00e0 self-drive tra Big Five e strade sterrate, riserve private con game drive all\u2019alba e al tramonto in lodge, e si chiude con Soweto e il Museo dell\u2019Apartheid. 12 giorni. La giraffa te la aspetti. Il leopardo no.\n\n\u{1F5FA}\uFE0F Spostamenti: voli interni + self-drive nel Kruger\n\n\u{1F4B0} Costo stimato per persona (gruppo di 6):\nâœˆï¸ Volo A/R MXP\u2192JNB (scalo): ~880 \u20ac\nâœˆï¸ Volo interno JNB\u2192Skukuza/Nelspruit: ~155 \u20ac\nðŸš— 1 SUV 7 posti Ã— 7gg nel Kruger (young driver fee ZAR 300/gg): ~120 \u20ac\nâš ï¸ Nota: noleggio spesso vietato sotto i 23 anni; verificare prima!\nðŸ¦ Ingressi Kruger (~$30/pp/gg Ã— 5gg): ~140 \u20ac\nðŸ•ï¸ Camp Kruger 5 notti + JHB 3 notti (Ã·6): ~280 \u20ac\nðŸŒ¿ Riserva privata 2 notti all-inclusive (lodge): ~700 \u20ac\nðŸ½ï¸ Vitto giorni liberi: ~350 \u20ac\nðŸ“Š Totale stimato: ~2.625\u20132.925 \u20ac a persona.',
+    desc: 'Johannesburg, poi dentro al Kruger in modalit\u00e0 self-drive tra Big Five e strade sterrate, riserve private con game drive all\u2019alba e al tramonto in lodge, e si chiude con Soweto e il Museo dell\u2019Apartheid. 12 giorni. La giraffa te la aspetti. Il leopardo no.\n\n\u{1F5FA}\uFE0F Spostamenti: voli interni + self-drive nel Kruger\n\n\u{1F4B0} Costo stimato per persona (gruppo di 6, pacchetto agenzia specializzata):\n\u2708\uFE0F Volo A/R MXP\u2192JNB (incluso nel pacchetto): ~880 \u20ac\n\uD83C\uDFD5\uFE0F Safari lodge Kruger 5 notti + riserva privata 2 notti, game drive, ingressi, transfer: ~2.100 \u20ac\n\uD83E\uDD81 Guida ranger certificata + veicolo 4x4 dedicato: incluso\n\uD83C\uDF0D Cape Town 3 notti (volo interno JHB\u2192CPT incluso), hotel 4\u2605: ~580 \u20ac\n\uD83C\uDF7D\uFE0F Pensione completa Kruger; colazioni + cene Cape Town: ~180 \u20ac\n\uD83D\uDCCA Totale stimato: ~3.740\u20134.100 \u20ac a persona\n\u26A0\uFE0F Agenzie consigliate: Kel 12, Africa Link, Wilderness Safaris (gruppo 6 = sconto ~5-8%)',
     itinerary: [
       'Volo Milano \u2192 Johannesburg, notte vicino all\'aeroporto.',
       'Johannesburg \u2192 volo per Kruger (Skukuza/Nelspruit), ingresso zona sud del parco, safari pomeridiano.',
