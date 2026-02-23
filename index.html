@@ -1,0 +1,1032 @@
+﻿<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Scegli la tua vacanza</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: "Segoe UI", sans-serif;
+      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+      min-height: 100vh;
+      color: #fff;
+      padding: 0 0 60px;
+    }
+
+    header {
+      text-align: center;
+      padding: 28px 20px 18px;
+      background: rgba(0,0,0,0.3);
+      border-bottom: 2px solid rgba(255,200,50,0.3);
+    }
+
+    header h1 {
+      font-size: 1.6rem;
+      letter-spacing: 1px;
+      color: #ffd700;
+      text-shadow: 0 0 18px rgba(255,215,0,0.5);
+    }
+
+    header p { font-size: 0.82rem; opacity: 0.6; margin-top: 5px; }
+
+    .progress-wrap { padding: 14px 18px 0; }
+
+    .progress-label {
+      font-size: 0.74rem; opacity: 0.55; margin-bottom: 6px;
+      display: flex; justify-content: space-between;
+    }
+
+    .progress-track {
+      width: 100%; height: 4px;
+      background: rgba(255,255,255,0.1); border-radius: 2px; overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #ffd700, #ff9500);
+      border-radius: 2px; transition: width 0.4s ease;
+    }
+
+    .screen { display: none; padding: 22px 18px; }
+    .screen.active { display: block; }
+
+    /* WELCOME */
+    .welcome-box { text-align: center; padding: 20px 4px; }
+    .welcome-box .big-emoji { font-size: 3.6rem; display: block; margin-bottom: 14px; }
+    .welcome-box h2 { font-size: 1.25rem; color: #ffd700; margin-bottom: 8px; }
+    .welcome-box p { font-size: 0.86rem; opacity: 0.7; line-height: 1.6; margin-bottom: 6px; }
+
+    .how-it-works {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 14px; padding: 16px; margin: 18px 0; text-align: left;
+    }
+
+    .step-row {
+      display: flex; align-items: flex-start; gap: 12px;
+      font-size: 0.82rem; opacity: 0.82; margin-bottom: 10px; line-height: 1.45;
+    }
+    .step-row:last-child { margin-bottom: 0; }
+
+    .step-num {
+      background: #ffd700; color: #1a1a1a; font-weight: 800; font-size: 0.74rem;
+      width: 22px; height: 22px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px;
+    }
+
+    /* DEST CARD */
+    .dest-header {
+      display: flex; align-items: flex-start; gap: 14px;
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.14);
+      border-radius: 18px; padding: 18px 16px; margin-bottom: 20px;
+    }
+
+    .dest-flag { font-size: 2.8rem; flex-shrink: 0; margin-top: 2px; }
+    .dest-name { font-size: 1.2rem; font-weight: 700; color: #ffd700; margin-bottom: 3px; }
+    .dest-days { font-size: 0.7rem; opacity: 0.5; margin-bottom: 7px; }
+    .dest-desc { font-size: 0.8rem; opacity: 0.75; line-height: 1.48; font-style: italic; }
+
+    .screen-subtitle { font-size: 0.77rem; opacity: 0.5; margin-bottom: 14px; text-align: center; }
+
+    /* PARAM RATING */
+    .param-card {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 14px; padding: 14px 14px 15px; margin-bottom: 11px;
+    }
+
+    .param-label {
+      font-size: 0.9rem; font-weight: 600; margin-bottom: 10px;
+      display: flex; align-items: center; gap: 6px;
+    }
+
+    .param-hint { font-size: 0.65rem; opacity: 0.4; font-weight: 400; margin-left: auto; text-align: right; max-width: 120px; line-height: 1.3; }
+
+    .stars { display: flex; gap: 7px; }
+
+    .star {
+      flex: 1; height: 38px; border-radius: 10px;
+      background: rgba(255,255,255,0.06); border: 2px solid rgba(255,255,255,0.12);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1rem; cursor: pointer; transition: all 0.18s;
+      color: rgba(255,255,255,0.35); font-weight: 700;
+    }
+
+    .star.selected {
+      background: #ffd700; border-color: #ffd700; color: #1a1a1a;
+      box-shadow: 0 0 10px rgba(255,215,0,0.45); transform: scale(1.06);
+    }
+
+    /* PESI */
+    .screen-title { font-size: 1.05rem; font-weight: 700; margin-bottom: 6px; color: #ffd700; }
+
+    .weight-info {
+      background: rgba(255,215,0,0.08); border: 1px solid rgba(255,215,0,0.25);
+      border-radius: 12px; padding: 12px 14px; font-size: 0.78rem;
+      margin-bottom: 18px; line-height: 1.55; color: #ffd;
+    }
+
+    .weight-card {
+      background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 14px; padding: 14px; margin-bottom: 10px;
+      display: flex; align-items: center; justify-content: space-between; gap: 10px;
+    }
+
+    .weight-card-label { font-size: 0.88rem; font-weight: 600; flex: 1; line-height: 1.35; }
+
+    .weight-btns { display: flex; gap: 5px; }
+
+    .wbtn {
+      width: 34px; height: 34px; border-radius: 8px;
+      background: rgba(255,255,255,0.07); border: 2px solid rgba(255,255,255,0.13);
+      color: rgba(255,255,255,0.45); font-weight: 700; font-size: 0.88rem;
+      cursor: pointer; transition: all 0.18s;
+      display: flex; align-items: center; justify-content: center;
+    }
+
+    .wbtn.selected {
+      background: #ff6b6b; border-color: #ff6b6b; color: #fff;
+      box-shadow: 0 0 10px rgba(255,107,107,0.45); transform: scale(1.08);
+    }
+
+    .wbtn.used { opacity: 0.2; cursor: not-allowed; }
+
+    /* RISULTATI */
+    .result-card {
+      background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.11);
+      border-radius: 18px; padding: 16px 16px 14px; margin-bottom: 12px; position: relative;
+    }
+
+    .result-card.top1 { border-color: #ffd700; background: rgba(255,215,0,0.08); box-shadow: 0 0 22px rgba(255,215,0,0.18); }
+    .result-card.top2 { border-color: #aaa; background: rgba(200,200,200,0.05); }
+    .result-card.top3 { border-color: #cd7f32; background: rgba(205,127,50,0.06); }
+
+    .result-rank { font-size: 1.5rem; position: absolute; top: 14px; right: 14px; }
+    .result-name { font-size: 1.08rem; font-weight: 700; margin-bottom: 3px; padding-right: 36px; }
+    .result-flag { font-size: 1.25rem; margin-right: 4px; }
+    .result-meta { font-size: 0.72rem; opacity: 0.5; margin-bottom: 5px; }
+    .result-desc { font-size: 0.77rem; opacity: 0.7; margin-bottom: 12px; line-height: 1.42; font-style: italic; }
+
+    .result-score-bar { height: 6px; background: rgba(255,255,255,0.08); border-radius: 3px; overflow: hidden; margin-bottom: 4px; }
+    .result-score-fill { height: 100%; background: linear-gradient(90deg, #ffd700, #ff6b6b); border-radius: 3px; transition: width 0.8s ease; }
+    .result-pct { font-size: 0.73rem; opacity: 0.5; text-align: right; margin-bottom: 10px; }
+
+    .result-bars { display: flex; flex-direction: column; gap: 5px; }
+
+    .bar-row { display: flex; align-items: center; gap: 7px; font-size: 0.69rem; opacity: 0.68; }
+    .bar-label { width: 88px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .bar-track { flex: 1; height: 4px; background: rgba(255,255,255,0.08); border-radius: 2px; overflow: hidden; }
+    .bar-fill { height: 100%; background: linear-gradient(90deg, #ffd700, #ff6b6b); border-radius: 2px; }
+
+    /* BUTTONS */
+    .btn {
+      display: block; width: 100%; padding: 15px; border-radius: 14px; border: none;
+      font-size: 1rem; font-weight: 700; cursor: pointer; margin-top: 16px;
+      transition: all 0.2s; letter-spacing: 0.4px;
+    }
+
+    .btn-primary { background: linear-gradient(135deg, #ffd700, #ff9500); color: #1a1a1a; }
+    .btn-primary:active { transform: scale(0.98); }
+    .btn-secondary { background: rgba(255,255,255,0.08); color: #fff; border: 1px solid rgba(255,255,255,0.18); margin-top: 10px; }
+    .btn:disabled { opacity: 0.35; cursor: not-allowed; }
+
+    .validation-msg { font-size: 0.75rem; color: #ff6b6b; text-align: center; margin-top: 10px; min-height: 18px; }
+
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.18); border-radius: 2px; }
+
+    /* === MODAL === */
+    .modal-overlay {
+      display: none;
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,0.7);
+      z-index: 999;
+      align-items: center; justify-content: center;
+      padding: 30px 24px;
+    }
+    .modal-overlay.open { display: flex; }
+
+    .modal-box {
+      background: linear-gradient(135deg, #1a1a2e, #16213e);
+      border: 2px solid rgba(255,107,107,0.5);
+      border-radius: 22px;
+      padding: 28px 22px 22px;
+      text-align: center;
+      max-width: 340px;
+      width: 100%;
+      box-shadow: 0 0 40px rgba(255,107,107,0.25);
+      animation: popIn 0.25s ease;
+    }
+
+    @keyframes popIn {
+      from { transform: scale(0.85); opacity: 0; }
+      to   { transform: scale(1);    opacity: 1; }
+    }
+
+    .modal-emoji { font-size: 3rem; display: block; margin-bottom: 12px; }
+
+    .modal-title {
+      font-size: 1.1rem; font-weight: 800;
+      color: #ff6b6b; margin-bottom: 10px;
+    }
+
+    .modal-text {
+      font-size: 0.85rem; opacity: 0.8;
+      line-height: 1.55; margin-bottom: 20px;
+    }
+
+    .modal-btn {
+      background: linear-gradient(135deg, #ff6b6b, #ff9500);
+      color: #fff; border: none; border-radius: 12px;
+      padding: 13px 30px; font-size: 0.95rem; font-weight: 700;
+      cursor: pointer; width: 100%;
+    }
+
+    /* === MAPPA === */
+    .map-toggle {
+      display: flex; align-items: center; justify-content: center; gap: 7px;
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 10px; padding: 10px 14px;
+      font-size: 0.82rem; font-weight: 600; cursor: pointer;
+      margin-top: 12px; color: #fff; width: 100%;
+      transition: background 0.2s;
+    }
+    .map-toggle:active { background: rgba(255,255,255,0.13); }
+
+    .map-section {
+      display: none; margin-top: 10px; border-radius: 14px; overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.12);
+    }
+    .map-section.open { display: block; }
+
+    .map-section iframe {
+      width: 100%; height: 220px; border: none; display: block;
+    }
+
+    .map-joke {
+      background: rgba(255,107,107,0.08);
+      border: 1px solid rgba(255,107,107,0.25);
+      border-radius: 14px; padding: 16px; margin-top: 10px;
+      font-size: 0.85rem; line-height: 1.5; text-align: center; color: #ff9090;
+      font-style: italic;
+    }
+
+    .map-open-link {
+      display: block; text-align: center; margin-top: 8px;
+      background: rgba(255,255,255,0.06);
+      border-top: 1px solid rgba(255,255,255,0.1);
+      padding: 9px; font-size: 0.75rem; color: rgba(255,255,255,0.5);
+      text-decoration: none;
+    }
+    .map-open-link:active { background: rgba(255,255,255,0.12); }
+
+    /* === ITINERARIO === */
+    .itin-toggle {
+      display: flex; align-items: center; justify-content: center; gap: 7px;
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 10px; padding: 10px 14px;
+      font-size: 0.82rem; font-weight: 600; cursor: pointer;
+      margin-top: 10px; color: #fff; width: 100%;
+      transition: background 0.2s;
+    }
+    .itin-toggle:active { background: rgba(255,255,255,0.13); }
+
+    .itin-section {
+      display: none; margin-top: 10px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 14px; overflow: hidden;
+    }
+    .itin-section.open { display: block; }
+
+    .itin-day {
+      padding: 11px 14px;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      display: flex; gap: 10px; align-items: flex-start;
+    }
+    .itin-day:last-child { border-bottom: none; }
+
+    .itin-num {
+      background: rgba(255,215,0,0.15); border: 1px solid rgba(255,215,0,0.3);
+      color: #ffd700; font-size: 0.65rem; font-weight: 800;
+      min-width: 28px; height: 20px; border-radius: 6px;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; margin-top: 2px;
+    }
+
+    .itin-text { font-size: 0.78rem; line-height: 1.45; opacity: 0.82; }
+
+    /* ── NAME SCREEN ── */
+    .name-label {
+      display: block; font-size: 0.78rem; font-weight: 700;
+      opacity: 0.7; margin-bottom: 8px; text-align: left;
+    }
+    .name-input-wrap { width: 100%; }
+    .name-input {
+      width: 100%; box-sizing: border-box;
+      background: rgba(255,255,255,0.08);
+      border: 1.5px solid rgba(255,255,255,0.2);
+      border-radius: 12px; padding: 14px 16px;
+      font-size: 1.05rem; color: #fff;
+      outline: none; transition: border-color 0.2s;
+    }
+    .name-input:focus { border-color: rgba(255,255,255,0.55); }
+    .name-input::placeholder { opacity: 0.35; }
+    .or-divider {
+      font-size: 0.75rem; opacity: 0.4;
+      margin: 14px 0 10px; text-align: center;
+    }
+
+    /* ── LEADERBOARD ── */
+    .lb-section-title {
+      font-size: 0.78rem; font-weight: 800; opacity: 0.5;
+      text-transform: uppercase; letter-spacing: 0.08em;
+      margin-bottom: 12px;
+    }
+    .lb-rank-row {
+      display: flex; align-items: center; gap: 10px;
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .lb-rank-row:last-child { border-bottom: none; }
+    .lb-medal { font-size: 1.4rem; flex-shrink: 0; }
+    .lb-rank-info { flex: 1; min-width: 0; }
+    .lb-rank-name { font-size: 0.85rem; font-weight: 700; margin-bottom: 5px; }
+    .lb-bar-wrap {
+      height: 6px; background: rgba(255,255,255,0.1);
+      border-radius: 99px; overflow: hidden;
+    }
+    .lb-bar-fill {
+      height: 100%; border-radius: 99px;
+      background: linear-gradient(90deg, #56ccf2, #2f80ed);
+      transition: width 0.5s ease;
+    }
+    .lb-count {
+      font-size: 0.72rem; font-weight: 700; opacity: 0.55;
+      flex-shrink: 0; text-align: right; min-width: 42px;
+    }
+    .lb-user-row {
+      display: flex; align-items: center; gap: 8px;
+      padding: 9px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      font-size: 0.82rem;
+    }
+    .lb-user-row:last-child { border-bottom: none; }
+    .lb-user-name { flex: 1; font-weight: 600; }
+    .lb-user-dest { opacity: 0.7; white-space: nowrap; }
+    .lb-user-date { font-size: 0.68rem; opacity: 0.35; white-space: nowrap; }
+
+    /* ── JOKE SCREEN ── */
+    .joke-card {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 20px;
+      padding: 24px 20px 20px;
+      display: flex; flex-direction: column; align-items: center; gap: 6px;
+    }
+    .joke-dest-flag { font-size: 3rem; line-height: 1; }
+    .joke-dest-name {
+      font-size: 2rem; font-weight: 900; text-align: center;
+      color: #fff; letter-spacing: -0.5px; margin-bottom: 14px;
+    }
+    .joke-img-wrap {
+      width: 100%; border-radius: 14px; overflow: hidden;
+      position: relative;
+    }
+    .joke-img-wrap img {
+      width: 100%; height: 240px; object-fit: cover; display: block;
+      border-radius: 14px;
+    }
+    .joke-img-fallback {
+      display: none; width: 100%; height: 200px;
+      background: linear-gradient(135deg, #1a3a4a 0%, #0f2027 100%);
+      border-radius: 14px; align-items: center; justify-content: center;
+      font-size: 4rem;
+    }
+  </style>
+</head>
+<body>
+
+<!-- MODAL SCOPATA -->
+<div class="modal-overlay" id="sexModal">
+  <div class="modal-box">
+    <span class="modal-emoji">💀</span>
+    <div class="modal-title">Dai su...</div>
+    <div class="modal-text">Inutile che metti 5.<br>Ricordati chi siete.<br><br>Questo voto rimarrà, ma almeno ora lo sai.</div>
+    <button class="modal-btn" onclick="closeModal()">Ok ok, ho capito 😔</button>
+  </div>
+</div>
+
+<header>
+  <h1>&#x2708;&#xFE0F; Scegli la tua vacanza</h1>
+  <p>Trova la meta perfetta per te</p>
+</header>
+
+<div class="progress-wrap" id="progressWrap" style="display:none">
+  <div class="progress-label">
+    <span id="progressText"></span>
+    <span id="progressCount"></span>
+  </div>
+  <div class="progress-track">
+    <div class="progress-fill" id="progressFill" style="width:0%"></div>
+  </div>
+</div>
+
+<!-- NOME -->
+<div class="screen active" id="screen-name">
+  <div class="welcome-box" style="text-align:center">
+    <span class="big-emoji">&#x1F30D;</span>
+    <h1 style="font-size:1.6rem;font-weight:900;margin:0 0 4px">Scegli la tua vacanza</h1>
+    <p style="opacity:0.55;font-size:0.83rem;margin:0 0 26px">Il quiz delle scelte difficili</p>
+    <div class="name-input-wrap">
+      <label class="name-label">Il tuo nome</label>
+      <input class="name-input" id="nameInput" type="text" placeholder="Es. Marco" autocomplete="off" maxlength="30"
+             onkeydown="if(event.key==='Enter') startWithName()">
+    </div>
+    <button class="btn btn-primary" onclick="startWithName()" style="margin-top:18px">Inizia &#x1F680;</button>
+    <div class="or-divider">oppure</div>
+    <button class="btn btn-secondary" onclick="openLeaderboard()">&#x1F4CA; Vedi risultati degli altri</button>
+  </div>
+</div>
+
+<!-- WELCOME -->
+<div class="screen" id="screen-welcome">
+  <div class="welcome-box">
+    <span class="big-emoji">&#x1F30D;</span>
+    <h2>Come funziona?</h2>
+    <div class="how-it-works">
+      <div class="step-row">
+        <div class="step-num">1</div>
+        <div>Ti viene mostrata ogni meta con una descrizione. Per ognuna valuti <strong>5 parametri</strong> da 1 a 5.</div>
+      </div>
+      <div class="step-row">
+        <div class="step-num">2</div>
+        <div>Scegli <strong>quanto conta</strong> ogni parametro per te (valori unici da 1 a 5).</div>
+      </div>
+      <div class="step-row">
+        <div class="step-num">3</div>
+        <div>Ottieni la <strong>classifica personalizzata</strong> basata sui tuoi voti e pesi.</div>
+      </div>
+    </div>
+    <p>Ci sono <strong>5 mete</strong> da valutare.</p>
+    <div style="margin-top:18px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:13px 14px;font-size:0.75rem;opacity:0.6;line-height:1.5;font-style:italic;">
+      ⚠️ Ogni dato qua dentro è realistico. Soltanto che non avevo voglia di impegnarmi troppo, quindi ha fatto tutto ChatGPT.
+    </div>
+  </div>
+  <button class="btn btn-primary" onclick="startDestinations()">Inizia &#x1F680;</button>
+</div>
+
+<!-- DEST -->
+<div class="screen" id="screen-dest">
+  <div class="dest-header" id="destHeader"></div>
+  <p class="screen-subtitle">Valuta questa meta da 1 a 5 su ogni parametro</p>
+  <div id="dest-params"></div>
+  <p class="validation-msg" id="dest-msg"></p>
+  <button class="btn btn-primary" id="btn-next-dest" onclick="nextDest()">Avanti &#x2192;</button>
+  <button class="btn btn-secondary" id="btn-prev-dest" onclick="prevDest()">&#x2190; Indietro</button>
+</div>
+
+<!-- PESI -->
+<div class="screen" id="screen-weights">
+  <p class="screen-title">Quanto conta ogni parametro?</p>
+  <div class="weight-info">
+    Assegna un'importanza da <strong>1 a 5</strong> a ciascun parametro.<br>
+    &#x26A0;&#xFE0F; Ogni numero pu&#xF2; essere usato <strong>una sola volta</strong>.
+  </div>
+  <div id="weights-container"></div>
+  <p class="validation-msg" id="weights-msg"></p>
+  <button class="btn btn-primary" onclick="calcResults()">Calcola &#x1F3AF;</button>
+  <button class="btn btn-secondary" onclick="backToLastDest()">&#x2190; Indietro</button>
+</div>
+
+<!-- SCHERZO -->
+<div class="screen" id="screen-joke">
+  <p class="screen-title">&#x1F4CD; In base alle tue scelte dovresti andare a...</p>
+  <div class="joke-card">
+    <div class="joke-dest-flag" id="jokeFlag"></div>
+    <div class="joke-dest-name" id="jokeName"></div>
+    <div class="joke-img-wrap">
+      <img id="jokeImg" src="" alt="" onerror="document.getElementById('jokeImgFallback').style.display='flex';this.style.display='none';">
+      <div class="joke-img-fallback" id="jokeImgFallback"><span id="jokeFallbackEmoji"></span></div>
+    </div>
+  </div>
+  <button class="btn btn-primary" onclick="showRealResults()" style="margin-top:28px">&#x1F605; Sto scherzando... scopri dove dovresti andare davvero &#x2192;</button>
+</div>
+
+<!-- RISULTATI -->
+<div class="screen" id="screen-results">
+  <p class="screen-title">&#x1F3C6; Le tue mete ideali</p>
+  <p style="font-size:0.77rem;opacity:0.5;margin-bottom:18px">Classifica basata sui tuoi voti e pesi</p>
+  <div id="results-container"></div>
+  <button class="btn btn-primary" id="btnSalva" onclick="saveAndShowLeaderboard()">&#x1F4BE; Salva e vedi classifica</button>
+  <button class="btn btn-secondary" onclick="resetAll()">&#x1F504; Ricomincia</button>
+</div>
+
+<!-- CLASSIFICA -->
+<div class="screen" id="screen-leaderboard">
+  <p class="screen-title">&#x1F4CA; Classifica del gruppo</p>
+  <div id="leaderboard-container"></div>
+  <button class="btn btn-primary" onclick="showScreen('name')" style="margin-top:18px">&#x1F504; Torna all'inizio</button>
+</div>
+
+<script>
+// ─────────────────────────────────────────────────────────────────
+// CONFIGURA QUI il tuo GitHub per il database
+// 1. Crea un Fine-grained PAT su https://github.com/settings/tokens
+//    con permesso "Contents: Read and Write" su questo repo
+// 2. Crea un file db.json nella root del repo con: {"results":[]}
+// ─────────────────────────────────────────────────────────────────
+const GH_OWNER = 'yuripapini';
+const GH_REPO  = 'scegli_vacanza';
+const GH_TOKEN = 'INSERISCI_IL_TUO_PAT';   // es. 'github_pat_...'
+const GH_DB    = 'db.json';
+const GH_API   = 'https://api.github.com/repos/' + GH_OWNER + '/' + GH_REPO + '/contents/' + GH_DB;
+// ─────────────────────────────────────────────────────────────────
+
+const PARAMS = [
+  { id: 'sex',  emoji: '\u{1F351}', label: 'Facilit\u00e0 di scopare', hint: '1=difficile \u00b7 5=facilissimo' },
+  { id: 'exp',  emoji: '\u{1F30D}', label: 'Esperienze',               hint: '1=poche \u00b7 5=tantissime' },
+  { id: 'eco',  emoji: '\u{1F4B8}', label: 'Economicit\u00e0',         hint: '1=costosissima \u00b7 5=super economica' },
+  { id: 'road', emoji: '\u{1F6FB}', label: 'On the road',              hint: '1=stanziale \u00b7 5=piena libert\u00e0' },
+  { id: 'cool', emoji: '\u{1F60E}', label: 'Quanto \u00e8 fica',       hint: '1=per niente \u00b7 5=leggendaria' },
+];
+
+const DESTINATIONS = [
+  { name: 'USA \u2013 Route 66',        flag: '\u{1F1FA}\u{1F1F8}', days: 15,
+    desc: 'Il viaggio su strada pi\u00f9 iconico al mondo tra diner retr\u00f2, deserti rossi e insegne al neon. Da Chicago a Santa Monica lungo la "Mother Road".\n\n\u{1F5FA}\uFE0F Distanza totale: ~3.900\u20134.000 km\n\n\u{1F4B0} Costo stimato tutto compreso: ~2.000\u20132.800 \u20ac a persona.',
+    mapSrc: 'https://www.openstreetmap.org/export/embed.html?bbox=-118.5%2C34.5%2C-87.5%2C42.0&layer=mapnik',
+    mapLink: 'https://www.google.com/maps/dir/Chicago,+IL/Springfield,+IL/St.+Louis,+MO/Oklahoma+City,+OK/Amarillo,+TX/Albuquerque,+NM/Flagstaff,+AZ/Santa+Monica,+CA',
+    itinerary: [
+      'Arrivo a Chicago – check-in, giro downtown, Millennium Park, serata in zona Riverwalk.',
+      'Chicago – Skydeck o 360 Chicago, Navy Pier, quartieri Wicker Park/Logan Square.',
+      'Chicago \u2192 St. Louis – ritiro auto, prima tappa sulla 66, sosta a Springfield (IL), Gateway Arch.',
+      'St. Louis \u2192 Joplin – piccole cittadine, vecchie stazioni di servizio, neon retr\u00f2.',
+      'Joplin \u2192 Oklahoma City – soste a Tulsa, musei Route 66, serata a Bricktown.',
+      'Oklahoma City \u2192 Amarillo – Cadillac Ranch, steakhouse tipica, atmosfera da old west.',
+      'Amarillo \u2192 Santa Rosa – neon motel storici, diner e piccoli musei locali.',
+      'Santa Rosa \u2192 Albuquerque – Old Town, Sandia Peak con vista dall\u2019alto.',
+      'Albuquerque \u2192 Holbrook – desert landscapes, insegne vintage.',
+      'Holbrook \u2192 Flagstaff – visita Petrified Forest e Painted Desert.',
+      'Flagstaff \u2192 Williams – gita al Grand Canyon South Rim, tramonto al canyon.',
+      'Williams \u2192 Kingman – Seligman e paesini tipici Route 66, diner anni \'50.',
+      'Kingman \u2192 Barstow – strada panoramica, asinelli di Oatman, deserto californiano.',
+      'Barstow \u2192 Los Angeles – arrivo a LA, Santa Monica Pier (fine della Route 66), Venice.',
+      'Los Angeles – Walk of Fame, Griffith Observatory, rientro in Italia.',
+    ]
+  },
+  { name: 'USA \u2013 Grandi Parchi',   flag: '\u{1F1FA}\u{1F1F8}', days: 15,
+    desc: 'Grand Canyon, Yellowstone, Zion, Bryce Canyon: la natura americana nella sua forma pi\u00f9 spettacolare. Tenda, camper e strade infinite.\n\n\u{1F5FA}\uFE0F Distanza totale: ~2.700 km\n\n\u{1F4B0} Costo stimato tutto compreso: ~2.300\u20133.500 \u20ac a persona.',
+    mapSrc: 'https://www.openstreetmap.org/export/embed.html?bbox=-114.5%2C35.5%2C-109.0%2C44.5&layer=mapnik',
+    mapLink: 'https://www.google.com/maps/dir/Grand+Canyon+National+Park,+AZ/Zion+National+Park,+UT/Bryce+Canyon+National+Park,+UT/Yellowstone+National+Park,+WY',
+    itinerary: [
+      'Arrivo a Las Vegas – check-in, Strip, serata soft (jet lag).',
+      'Las Vegas – giornata libera, preparazione road trip, shopping.',
+      'Las Vegas \u2192 Zion National Park – hiking facile (Canyon Overlook).',
+      'Zion \u2192 Bryce Canyon – passeggiate tra gli hoodoos (Navajo Loop/Queens Garden).',
+      'Bryce \u2192 Page – tramonto a Horseshoe Bend, serata a Page.',
+      'Page – Antelope Canyon (tour guidato) + lago Powell.',
+      'Page \u2192 Monument Valley – scenic drive, tour Navajo opzionale.',
+      'Monument Valley \u2192 Grand Canyon South Rim – primo affaccio al canyon, tramonto.',
+      'Grand Canyon – camminate lungo il rim, shuttle tra i viewpoint.',
+      'Grand Canyon \u2192 Las Vegas – strada panoramica via Route 66, notte a Vegas.',
+      'Las Vegas \u2192 Death Valley \u2192 Fresno – punti panoramici, trasferimento verso la California.',
+      'Fresno \u2192 Yosemite – prime esplorazioni (valley floor, Tunnel View).',
+      'Yosemite – hiking facile: Mirror Lake, Yosemite Falls o Glacier Point.',
+      'Yosemite \u2192 San Francisco – arrivo, passeggiata a Fisherman\'s Wharf.',
+      'San Francisco – Golden Gate, quartieri Mission/Haight, rientro in Italia.',
+    ]
+  },
+  { name: 'USA \u2013 Costa Ovest',     flag: '\u{1F1FA}\u{1F1F8}', days: 15,
+    desc: 'San Francisco, Big Sur, Los Angeles: la Pacific Coast Highway tra surf, vip e tramonti sull\'oceano. Citt\u00e0 viva, vita notturna, beach vibes.\n\n\u{1F5FA}\uFE0F Distanza totale: ~2.600 km\n\n\u{1F4B0} Costo stimato tutto compreso: ~2.500\u20133.800 \u20ac a persona.',
+    mapSrc: 'https://www.openstreetmap.org/export/embed.html?bbox=-124.0%2C33.5%2C-117.0%2C38.0&layer=mapnik',
+    mapLink: 'https://www.google.com/maps/dir/San+Francisco,+CA/Big+Sur,+CA/Santa+Barbara,+CA/Los+Angeles,+CA',
+    itinerary: [
+      'Arrivo a Los Angeles – check-in, Santa Monica, Venice Beach.',
+      'Los Angeles – Hollywood, Griffith Observatory, Downtown.',
+      'Los Angeles – Universal Studios o giornata al mare.',
+      'LA \u2192 Joshua Tree \u2192 Palm Springs – parco nel deserto, notte a Palm Springs.',
+      'Palm Springs \u2192 Las Vegas – arrivo in Strip.',
+      'Las Vegas – giornata libera o Red Rock Canyon.',
+      'Las Vegas \u2192 Zion o Page – hiking o Horseshoe Bend al tramonto.',
+      'Page \u2192 Grand Canyon – Antelope Canyon al mattino, poi Grand Canyon South Rim.',
+      'Grand Canyon \u2192 Kingman – strada vintage Route 66, motel anni \'50.',
+      'Kingman \u2192 Santa Barbara – trasferimento, mare.',
+      'Santa Barbara \u2192 Big Sur – inizio Pacific Coast Highway, scogliere e viewpoint.',
+      'Big Sur \u2192 Monterey/Carmel – 17-Mile Drive, cittadine di mare.',
+      'Monterey \u2192 San Francisco – arrivo, primo giro.',
+      'San Francisco – Golden Gate, Alcatraz opzionale.',
+      'San Francisco – ultimi giri, rientro in Italia.',
+    ]
+  },
+  { name: 'Mykonos',                    flag: '\u{1F1EC}\u{1F1F7}', days: 5,
+    desc: 'Ah i paesaggi, i tramonti, l\'architettura cicladica... ma dai. Sai benissimo perch\u00e9 ci vai. Beach club, gente bella da ogni parte d\'Europa, notti senza fine. Corto ma intenso.\n\n\u{1F5FA}\uFE0F Spostamenti interni (taxi/quad): ~100 km\n\n\u{1F4B0} Costo stimato tutto compreso: ~800\u20131.500 \u20ac a persona.',
+    mapSrc: null,
+    mapLink: null,
+    itinerary: [
+      'Arrivo a Mykonos – check-in, spiaggia a Paradise Beach, serata al Tropicana Beach Club.',
+      'Mykonos – mattina relax, pomeriggio e sera al Tropicana.',
+      'Mykonos – colazione tardi, Tropicana tutto il pomeriggio e party la sera.',
+      'Mykonos – giornata intera al Tropicana, mare + aperitivi + serata.',
+      'Mykonos – ultime ore al Tropicana, poi rientro.',
+    ]
+  },
+  { name: 'Canada',                     flag: '\u{1F1E8}\u{1F1E6}', days: 15,
+    desc: 'Banff, Vancouver, Montr\u00e9al: Montagne Rocciose, foreste sconfinate e citt\u00e0 multiculturali. Natura maestosa e qualit\u00e0 della vita altissima.\n\n\u{1F5FA}\uFE0F Distanza su strada: ~2.600 km (+ volo interno Calgary → Toronto)\n\n\u{1F4B0} Costo stimato tutto compreso: ~2.000\u20133.500 \u20ac (budget/medio), fino a ~4.500 \u20ac se pi\u00f9 comodo.',
+    mapSrc: 'https://www.openstreetmap.org/export/embed.html?bbox=-128.0%2C48.0%2C-73.0%2C55.0&layer=mapnik',
+    mapLink: 'https://www.google.com/maps/dir/Vancouver,+BC/Banff,+AB/Calgary,+AB/Toronto,+ON/Montreal,+QC',
+    itinerary: [
+      'Arrivo a Vancouver – Downtown, Canada Place, seawall.',
+      'Vancouver – Stanley Park in bici, Gastown, Granville Island.',
+      'Vancouver \u2192 Whistler – Sea to Sky Highway, hiking leggeri.',
+      'Whistler \u2192 Kamloops – strada interna, laghi e paesaggi.',
+      'Kamloops \u2192 Jasper – entrata nelle Rockies, prime viste di montagna.',
+      'Jasper – Maligne Canyon, Maligne Lake, animali selvatici.',
+      'Jasper \u2192 Icefields Parkway \u2192 Lake Louise – strada panoramica, Athabasca Glacier opzionale.',
+      'Lake Louise – lago e hiking (Lake Agnes, Plain of Six Glaciers).',
+      'Lake Louise \u2192 Banff – Moraine Lake se accessibile, arrivo a Banff.',
+      'Banff – Sulphur Mountain (gondola o hiking), Bow Falls, cittadina.',
+      'Banff \u2192 Calgary – breve visita downtown Calgary.',
+      'Calgary \u2192 volo interno \u2192 Toronto o Montr\u00e9al – arrivo, giro serale.',
+      'Toronto + Niagara Falls (gita) o visita urbana di Montr\u00e9al.',
+      'Toronto/Montr\u00e9al – ultimo giorno, quartieri caratteristici.',
+      'Rientro – volo per l\'Italia.',
+    ]
+  },
+];
+
+let destIndex    = 0;
+let destRatings  = {};
+let weightValues = {};
+let currentUser  = '';
+
+const SCREEN_IDS = ['name', 'welcome', 'dest', 'weights', 'joke', 'results', 'leaderboard'];
+
+function showScreen(id) {
+  SCREEN_IDS.forEach(s => document.getElementById('screen-' + s).classList.toggle('active', s === id));
+  window.scrollTo(0, 0);
+  const showProg = id === 'dest' || id === 'weights';
+  document.getElementById('progressWrap').style.display = showProg ? 'block' : 'none';
+  if (showProg) updateProgress(id);
+}
+
+function updateProgress(screenId) {
+  const total = DESTINATIONS.length + 1;
+  const done  = screenId === 'weights' ? DESTINATIONS.length : destIndex;
+  const pct   = Math.round((done / total) * 100);
+  document.getElementById('progressFill').style.width = pct + '%';
+  document.getElementById('progressCount').textContent = screenId === 'weights' ? 'Pesi' : (destIndex + 1) + ' / ' + DESTINATIONS.length;
+  document.getElementById('progressText').textContent  = screenId === 'weights' ? 'Ultima cosa...' : DESTINATIONS[destIndex].name;
+}
+
+function startWithName() {
+  var n = document.getElementById('nameInput').value.trim();
+  if (!n) {
+    document.getElementById('nameInput').focus();
+    document.getElementById('nameInput').style.borderColor = '#f88';
+    setTimeout(function() { document.getElementById('nameInput').style.borderColor = ''; }, 1200);
+    return;
+  }
+  currentUser = n;
+  showScreen('welcome');
+}
+
+function startDestinations() {
+  destIndex = 0; destRatings = {}; weightValues = {};
+  renderDest(); showScreen('dest');
+}
+
+function renderDest() {
+  const dest = DESTINATIONS[destIndex];
+  var old = document.getElementById('mapArea');
+  if (old) old.remove();
+  var oldItin = document.getElementById('itinArea');
+  if (oldItin) oldItin.remove();
+  document.getElementById('destHeader').innerHTML =
+    '<div class="dest-flag">' + dest.flag + '</div>' +
+    '<div class="dest-info">' +
+      '<div class="dest-name">' + dest.name + '</div>' +
+      '<div class="dest-days">&#x1F4C5; ' + dest.days + ' giorni</div>' +
+      '<div class="dest-desc">' + dest.desc.replace(/\n\n/g, '<br><br>') + '</div>' +
+    '</div>';
+
+  // Mappa sezione
+  var mapHtml = '';
+  if (dest.mapSrc === null) {
+    mapHtml = '<div class="map-joke">&#x1F5FA;&#xFE0F; Cosa vuoi la mappa del Tropicana?<br>Atterri, esci, giri a destra e sei gi\u00e0 in discoteca.</div>';
+  } else {
+    mapHtml =
+      '<button class="map-toggle" onclick="toggleMap()">&#x1F5FA;&#xFE0F; Vedi itinerario</button>' +
+      '<div class="map-section" id="mapSection">' +
+        '<iframe src="' + dest.mapSrc + '" loading="lazy" title="mappa"></iframe>' +
+        '<a class="map-open-link" href="' + dest.mapLink + '" target="_blank">&#x1F517; Apri itinerario su Google Maps</a>' +
+      '</div>';
+  }
+  document.getElementById('destHeader').insertAdjacentHTML('afterend', '<div id="mapArea">' + mapHtml + '</div>');
+
+  // Itinerario sezione
+  var itinHtml = '<button class="itin-toggle" onclick="toggleItin()">&#x1F4CB; Vedi itinerario giorno per giorno</button>' +
+    '<div class="itin-section" id="itinSection">' +
+    dest.itinerary.map(function(d, i) {
+      return '<div class="itin-day"><div class="itin-num">G' + (i + 1) + '</div><div class="itin-text">' + d + '</div></div>';
+    }).join('') +
+    '</div>';
+  document.getElementById('mapArea').insertAdjacentHTML('afterend', '<div id="itinArea">' + itinHtml + '</div>');
+
+  const saved = destRatings[destIndex] || {};
+  document.getElementById('dest-params').innerHTML = PARAMS.map(function(p) {
+    var stars = [1,2,3,4,5].map(function(v) {
+      return '<div class="star' + (saved[p.id] === v ? ' selected' : '') + '" onclick="setDestParam(\'' + p.id + '\',' + v + ')">' + v + '</div>';
+    }).join('');
+    return '<div class="param-card">' +
+      '<div class="param-label"><span>' + p.emoji + '</span>' + p.label + '<span class="param-hint">' + p.hint + '</span></div>' +
+      '<div class="stars" id="dstars-' + p.id + '">' + stars + '</div>' +
+    '</div>';
+  }).join('');
+
+  document.getElementById('btn-prev-dest').style.display = destIndex === 0 ? 'none' : 'block';
+  document.getElementById('btn-next-dest').textContent =
+    destIndex === DESTINATIONS.length - 1 ? 'Avanti ai pesi \u2192' : 'Avanti \u2192';
+  document.getElementById('dest-msg').textContent = '';
+}
+
+function toggleMap() {
+  var s = document.getElementById('mapSection');
+  if (s) s.classList.toggle('open');
+}
+
+function toggleItin() {
+  var s = document.getElementById('itinSection');
+  if (s) s.classList.toggle('open');
+}
+
+function setDestParam(paramId, val) {
+  if (!destRatings[destIndex]) destRatings[destIndex] = {};
+  destRatings[destIndex][paramId] = val;
+  document.querySelectorAll('#dstars-' + paramId + ' .star').forEach(function(s, i) {
+    s.classList.toggle('selected', i + 1 === val);
+  });
+  document.getElementById('dest-msg').textContent = '';
+  if (paramId === 'sex' && val === 5) {
+    document.getElementById('sexModal').classList.add('open');
+  }
+}
+
+function closeModal() {
+  document.getElementById('sexModal').classList.remove('open');
+}
+
+function nextDest() {
+  var ratings = destRatings[destIndex] || {};
+  var missing = PARAMS.filter(function(p) { return !ratings[p.id]; });
+  if (missing.length) {
+    document.getElementById('dest-msg').textContent = 'Valuta ancora: ' + missing.map(function(p) { return p.label; }).join(', ');
+    return;
+  }
+  if (destIndex < DESTINATIONS.length - 1) {
+    destIndex++; renderDest(); updateProgress('dest');
+  } else {
+    buildWeights(); showScreen('weights');
+  }
+}
+
+function prevDest() {
+  if (destIndex > 0) { destIndex--; renderDest(); updateProgress('dest'); }
+  else { showScreen('welcome'); }
+}
+
+function buildWeights() {
+  document.getElementById('weights-container').innerHTML = PARAMS.map(function(p) {
+    var btns = [1,2,3,4,5].map(function(v) {
+      return '<div class="wbtn" onclick="setWeight(\'' + p.id + '\',' + v + ')">' + v + '</div>';
+    }).join('');
+    return '<div class="weight-card"><div class="weight-card-label">' + p.emoji + ' ' + p.label + '</div><div class="weight-btns" id="wbtns-' + p.id + '">' + btns + '</div></div>';
+  }).join('');
+  weightValues = {};
+  document.getElementById('weights-msg').textContent = '';
+}
+
+function setWeight(id, val) {
+  var used = Object.entries(weightValues).filter(function(e) { return e[0] !== id; }).map(function(e) { return e[1]; });
+  if (used.includes(val)) return;
+  weightValues[id] = val;
+  refreshWeightButtons();
+  document.getElementById('weights-msg').textContent = '';
+}
+
+function refreshWeightButtons() {
+  var allUsed = Object.values(weightValues);
+  PARAMS.forEach(function(p) {
+    var chosen = weightValues[p.id];
+    document.querySelectorAll('#wbtns-' + p.id + ' .wbtn').forEach(function(btn) {
+      var v = parseInt(btn.textContent);
+      btn.className = 'wbtn' + (v === chosen ? ' selected' : (!chosen || !allUsed.includes(v) ? '' : ' used'));
+    });
+  });
+}
+
+function backToLastDest() {
+  destIndex = DESTINATIONS.length - 1; renderDest(); showScreen('dest');
+}
+
+function calcResults() {
+  var missing = PARAMS.filter(function(p) { return !weightValues[p.id]; });
+  if (missing.length) {
+    document.getElementById('weights-msg').textContent = 'Assegna importanza a: ' + missing.map(function(p) { return p.label; }).join(', ');
+    return;
+  }
+  var totalWeight = PARAMS.reduce(function(s, p) { return s + weightValues[p.id]; }, 0);
+  var maxScore    = 5 * totalWeight;
+  var scored = DESTINATIONS.map(function(dest, idx) {
+    var ratings = destRatings[idx] || {};
+    var score = PARAMS.reduce(function(s, p) { return s + (ratings[p.id] || 1) * weightValues[p.id]; }, 0);
+    return Object.assign({}, dest, { ratings: ratings, score: score, pct: Math.round((score / maxScore) * 100) });
+  });
+  scored.sort(function(a, b) { return b.score - a.score; });
+  pendingResults = scored;
+
+  // Mostra scherzo prima dei risultati reali
+  var joke = JOKE_DESTS[Math.floor(Math.random() * JOKE_DESTS.length)];
+  document.getElementById('jokeFlag').textContent = joke.flag;
+  document.getElementById('jokeName').textContent = joke.name;
+  document.getElementById('jokeFallbackEmoji').textContent = joke.emoji;
+  var img = document.getElementById('jokeImg');
+  var fallback = document.getElementById('jokeImgFallback');
+  img.style.display = 'block';
+  fallback.style.display = 'none';
+  img.src = joke.img;
+  showScreen('joke');
+}
+
+function showRealResults() {
+  renderResults(pendingResults);
+  var btn = document.getElementById('btnSalva');
+  btn.disabled = false;
+  btn.textContent = '\u{1F4BE} Salva e vedi classifica';
+  showScreen('results');
+}
+
+var pendingResults = null;
+
+var JOKE_DESTS = [
+  { name: 'Catanzaro Lido', flag: '\u{1F1EE}\u{1F1F9}', emoji: '\u{1F3D6}\uFE0F',
+    img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1e/Catanzaro_Lido.jpg/800px-Catanzaro_Lido.jpg' },
+  { name: 'Tel Aviv', flag: '\u{1F1EE}\u{1F1F1}', emoji: '\u{1F3D9}\uFE0F',
+    img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/aa/Tel_aviv_-_gordon_beach.jpg/800px-Tel_aviv_-_gordon_beach.jpg' },
+  { name: 'Palestina', flag: '\u{1F1F5}\u{1F1F8}', emoji: '\u{1F54C}',
+    img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/dc/Gaza_market.jpg/800px-Gaza_market.jpg' },
+  { name: 'Nuova Delhi', flag: '\u{1F1EE}\u{1F1F3}', emoji: '\u{1F9F1}',
+    img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/India_Gate_in_New_Delhi.jpg/800px-India_Gate_in_New_Delhi.jpg' },
+];
+
+var MEDALS = ['\u{1F947}', '\u{1F948}', '\u{1F949}'];
+
+function renderResults(scored) {
+  document.getElementById('results-container').innerHTML = scored.map(function(dest, i) {
+    var cls   = i === 0 ? 'top1' : i === 1 ? 'top2' : i === 2 ? 'top3' : '';
+    var medal = MEDALS[i] || '#' + (i + 1);
+    var bars  = PARAMS.map(function(p) {
+      var v = dest.ratings[p.id] || 0;
+      return '<div class="bar-row"><div class="bar-label">' + p.emoji + ' ' + p.label + '</div><div class="bar-track"><div class="bar-fill" style="width:' + (v * 20) + '%"></div></div><div>' + v + '/5</div></div>';
+    }).join('');
+    return '<div class="result-card ' + cls + '">' +
+      '<div class="result-rank">' + medal + '</div>' +
+      '<div class="result-name"><span class="result-flag">' + dest.flag + '</span>' + dest.name + '</div>' +
+      '<div class="result-meta">&#x1F4C5; ' + dest.days + ' giorni</div>' +
+      '<div class="result-desc">' + dest.desc.replace(/\n\n/g, '<br><br>') + '</div>' +
+      '<div class="result-score-bar"><div class="result-score-fill" style="width:' + dest.pct + '%"></div></div>' +
+      '<div class="result-pct">Punteggio: ' + dest.pct + '%</div>' +
+      '<div class="result-bars">' + bars + '</div>' +
+    '</div>';
+  }).join('');
+}
+
+function resetAll() {
+  destIndex = 0; destRatings = {}; weightValues = {}; currentUser = '';
+  document.getElementById('nameInput').value = '';
+  showScreen('name');
+}
+
+// ── GITHUB DATABASE ──────────────────────────────────────────────
+
+function b64enc(str) { return btoa(unescape(encodeURIComponent(str))); }
+function b64dec(str) { return decodeURIComponent(escape(atob(str.replace(/\s/g,'')))); }
+
+async function dbFetch() {
+  var r = await fetch(GH_API, { headers: {
+    'Authorization': 'Bearer ' + GH_TOKEN,
+    'Accept': 'application/vnd.github+json',
+    'X-GitHub-Api-Version': '2022-11-28'
+  }});
+  if (!r.ok) throw new Error('Impossibile leggere il database (status ' + r.status + ')');
+  var j = await r.json();
+  return { data: JSON.parse(b64dec(j.content)), sha: j.sha };
+}
+
+async function dbWrite(data, sha) {
+  var r = await fetch(GH_API, {
+    method: 'PUT',
+    headers: {
+      'Authorization': 'Bearer ' + GH_TOKEN,
+      'Accept': 'application/vnd.github+json',
+      'Content-Type': 'application/json',
+      'X-GitHub-Api-Version': '2022-11-28'
+    },
+    body: JSON.stringify({
+      message: 'update results \u2013 ' + currentUser,
+      content: b64enc(JSON.stringify(data, null, 2)),
+      sha: sha
+    })
+  });
+  if (!r.ok) throw new Error('Errore nel salvataggio (status ' + r.status + ')');
+}
+
+async function saveAndShowLeaderboard() {
+  if (!pendingResults) return;
+  var btn = document.getElementById('btnSalva');
+  btn.disabled = true;
+  btn.textContent = '\u23F3 Salvataggio in corso...';
+  try {
+    var top = pendingResults[0];
+    var fetched = await dbFetch();
+    fetched.data.results.push({
+      name: currentUser,
+      dest: top.name,
+      flag: top.flag,
+      date: new Date().toISOString().slice(0, 10)
+    });
+    await dbWrite(fetched.data, fetched.sha);
+    await openLeaderboard();
+  } catch(e) {
+    btn.disabled = false;
+    btn.textContent = '\u{1F4BE} Salva e vedi classifica';
+    alert('\u26A0\uFE0F ' + e.message + '\n\nControlla la configurazione (GH_OWNER, GH_REPO, GH_TOKEN) in fondo al file HTML.');
+  }
+}
+
+async function openLeaderboard() {
+  var el = document.getElementById('leaderboard-container');
+  el.innerHTML = '<p style="opacity:0.5;text-align:center">\u23F3 Caricamento...</p>';
+  showScreen('leaderboard');
+  try {
+    var fetched = await dbFetch();
+    renderLeaderboard(fetched.data.results);
+  } catch(e) {
+    el.innerHTML = '<p style="color:#f88;opacity:0.9;font-size:0.85rem">\u26A0\uFE0F Errore: ' + e.message + '<br><br>Controlla la configurazione nel file HTML.</p>';
+  }
+}
+
+function renderLeaderboard(results) {
+  var el = document.getElementById('leaderboard-container');
+  if (!results || results.length === 0) {
+    el.innerHTML = '<p style="opacity:0.5;text-align:center">Nessun risultato ancora.\u{1F4A4}<br>Sii il primo! \u{1F680}</p>';
+    return;
+  }
+
+  // Conteggio per destinazione
+  var counts = {};
+  results.forEach(function(r) {
+    if (!counts[r.dest]) counts[r.dest] = { count: 0, flag: r.flag };
+    counts[r.dest].count++;
+    counts[r.dest].flag = r.flag;
+  });
+  var ranking = Object.keys(counts).map(function(k) {
+    return { dest: k, flag: counts[k].flag, count: counts[k].count };
+  }).sort(function(a, b) { return b.count - a.count; });
+  var maxCount = ranking[0].count;
+
+  var html = '<div class="lb-section-title">\u{1F4CA} Classifica destinazioni</div>';
+  ranking.forEach(function(r, i) {
+    var medal = ['\u{1F947}','\u{1F948}','\u{1F949}'][i] || '#'+(i+1);
+    var pct = Math.round((r.count / maxCount) * 100);
+    html += '<div class="lb-rank-row">' +
+      '<div class="lb-medal">' + medal + '</div>' +
+      '<div class="lb-rank-info">' +
+        '<div class="lb-rank-name">' + r.flag + ' ' + r.dest + '</div>' +
+        '<div class="lb-bar-wrap"><div class="lb-bar-fill" style="width:' + pct + '%"></div></div>' +
+      '</div>' +
+      '<div class="lb-count">' + r.count + (r.count === 1 ? ' voto' : ' voti') + '</div>' +
+    '</div>';
+  });
+
+  // Lista utenti
+  html += '<div class="lb-section-title" style="margin-top:24px">\u{1F465} Tutti i partecipanti</div>';
+  var sorted = results.slice().sort(function(a,b) { return b.date.localeCompare(a.date); });
+  sorted.forEach(function(r) {
+    html += '<div class="lb-user-row">' +
+      '<div class="lb-user-name">\u{1F464} ' + r.name + '</div>' +
+      '<div class="lb-user-dest">' + r.flag + ' ' + r.dest + '</div>' +
+      '<div class="lb-user-date">' + r.date + '</div>' +
+    '</div>';
+  });
+
+  el.innerHTML = html;
+}
+</script>
+</body>
+</html>
