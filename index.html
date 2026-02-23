@@ -537,16 +537,14 @@
 
 <script>
 // ─────────────────────────────────────────────────────────────────
-// CONFIGURA QUI il tuo GitHub per il database
-// 1. Crea un Fine-grained PAT su https://github.com/settings/tokens
-//    con permesso "Contents: Read and Write" su questo repo
-// 2. Crea un file db.json nella root del repo con: {"results":[]}
+// CONFIGURA QUI il database (JSONBin.io - gratuito)
+// 1. Registrati su https://jsonbin.io
+// 2. Dashboard → API Keys → copia la Master Key
+// 3. Dashboard → Bins → New Bin → incolla {"results":[]} → crea → copia l'ID
 // ─────────────────────────────────────────────────────────────────
-const GH_OWNER = 'yuripapini';
-const GH_REPO  = 'scegli_vacanza';
-const GH_TOKEN = 'INSERISCI_IL_TUO_PAT';   // es. 'github_pat_...'
-const GH_DB    = 'db.json';
-const GH_API   = 'https://api.github.com/repos/' + GH_OWNER + '/' + GH_REPO + '/contents/' + GH_DB;
+const JB_BIN_ID = 'INSERISCI_BIN_ID';    // es. '67abc123e41b4d3452...'
+const JB_KEY    = 'INSERISCI_MASTER_KEY'; // es. '$2a$10$abc...'
+const JB_API    = 'https://api.jsonbin.io/v3/b/' + JB_BIN_ID;
 // ─────────────────────────────────────────────────────────────────
 
 const PARAMS = [
@@ -912,36 +910,25 @@ function resetAll() {
   showScreen('name');
 }
 
-// ── GITHUB DATABASE ──────────────────────────────────────────────
-
-function b64enc(str) { return btoa(unescape(encodeURIComponent(str))); }
-function b64dec(str) { return decodeURIComponent(escape(atob(str.replace(/\s/g,'')))); }
+// ── JSONBIN DATABASE ─────────────────────────────────────────────
 
 async function dbFetch() {
-  var r = await fetch(GH_API, { headers: {
-    'Authorization': 'Bearer ' + GH_TOKEN,
-    'Accept': 'application/vnd.github+json',
-    'X-GitHub-Api-Version': '2022-11-28'
-  }});
+  var r = await fetch(JB_API + '/latest', {
+    headers: { 'X-Access-Key': JB_KEY }
+  });
   if (!r.ok) throw new Error('Impossibile leggere il database (status ' + r.status + ')');
   var j = await r.json();
-  return { data: JSON.parse(b64dec(j.content)), sha: j.sha };
+  return j.record;
 }
 
-async function dbWrite(data, sha) {
-  var r = await fetch(GH_API, {
+async function dbWrite(data) {
+  var r = await fetch(JB_API, {
     method: 'PUT',
     headers: {
-      'Authorization': 'Bearer ' + GH_TOKEN,
-      'Accept': 'application/vnd.github+json',
       'Content-Type': 'application/json',
-      'X-GitHub-Api-Version': '2022-11-28'
+      'X-Master-Key': JB_KEY
     },
-    body: JSON.stringify({
-      message: 'update results \u2013 ' + currentUser,
-      content: b64enc(JSON.stringify(data, null, 2)),
-      sha: sha
-    })
+    body: JSON.stringify(data)
   });
   if (!r.ok) throw new Error('Errore nel salvataggio (status ' + r.status + ')');
 }
@@ -953,19 +940,19 @@ async function saveAndShowLeaderboard() {
   btn.textContent = '\u23F3 Salvataggio in corso...';
   try {
     var top = pendingResults[0];
-    var fetched = await dbFetch();
-    fetched.data.results.push({
+    var data = await dbFetch();
+    data.results.push({
       name: currentUser,
       dest: top.name,
       flag: top.flag,
       date: new Date().toISOString().slice(0, 10)
     });
-    await dbWrite(fetched.data, fetched.sha);
+    await dbWrite(data);
     await openLeaderboard();
   } catch(e) {
     btn.disabled = false;
     btn.textContent = '\u{1F4BE} Salva e vedi classifica';
-    alert('\u26A0\uFE0F ' + e.message + '\n\nControlla la configurazione (GH_OWNER, GH_REPO, GH_TOKEN) in fondo al file HTML.');
+    alert('\u26A0\uFE0F ' + e.message + '\n\nControlla JB_BIN_ID e JB_KEY nel file HTML.');
   }
 }
 
@@ -974,10 +961,10 @@ async function openLeaderboard() {
   el.innerHTML = '<p style="opacity:0.5;text-align:center">\u23F3 Caricamento...</p>';
   showScreen('leaderboard');
   try {
-    var fetched = await dbFetch();
-    renderLeaderboard(fetched.data.results);
+    var data = await dbFetch();
+    renderLeaderboard(data.results);
   } catch(e) {
-    el.innerHTML = '<p style="color:#f88;opacity:0.9;font-size:0.85rem">\u26A0\uFE0F Errore: ' + e.message + '<br><br>Controlla la configurazione nel file HTML.</p>';
+    el.innerHTML = '<p style="color:#f88;opacity:0.9;font-size:0.85rem">\u26A0\uFE0F Errore: ' + e.message + '<br><br>Controlla JB_BIN_ID e JB_KEY nel file HTML.</p>';
   }
 }
 
