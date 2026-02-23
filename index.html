@@ -664,6 +664,7 @@ const DEST_CODES = {
   'Thailandia':                     'th',
   'Per\u00f9':                       'pe',
   'Namibia':                        'na',
+  'Madagascar':                      'mg',
 };
 const JOKE_CODES = { 'Catanzaro Lido': 'it', 'Tel Aviv': 'il', 'Palestina': 'ps', 'Nuova Delhi': 'in' };
 
@@ -686,6 +687,7 @@ const DEST_STATS = {
   'Thailandia':                     { sex:4, exp:4, eco:4, road:2, cool:4 },
   'Per\u00f9':                       { sex:2, exp:5, eco:3, road:3, cool:5 },
   'Namibia':                        { sex:1, exp:5, eco:2, road:5, cool:5 },
+  'Madagascar':                      { sex:2, exp:5, eco:3, road:4, cool:5 },
 };
 
 function renderStatBar(val) {
@@ -889,6 +891,26 @@ const DESTINATIONS = [
       'Swakopmund \u2192 Sossusvlei / Sesriem (~350 km) \u2013 ingresso nel deserto del Namib, notte a Sesriem con cielo stellato da capogiro.',
       'Sossusvlei \u2013 Alba a Dune 45 e Big Daddy (325 m, la pi\u00f9 alta), Deadvlei con gli alberi morti da 900 anni tra le dune arancioni, rientro verso Windhoek (~360 km).',
       'Windhoek \u2013 Mattina libera, souvenir al Craft Centre, volo di rientro per l\u2019Italia.',
+    ]
+  },
+  { name: 'Madagascar',                  flag: '\u{1F1F2}\u{1F1EC}', days: 15,
+    desc: 'La foresta di Andasibe con i lemuri indri che urlano all\u2019alba, il massiccio di pietra dell\u2019Isalo con i canyon e le piscine naturali, e infine Nosy Be con le sue spiagge tropicali, le immersioni e le balene in luglio. Tre paesaggi completamente diversi in un unico viaggio: foresta pluviale, savana desertica e oceano Indiano. Biodiversit\u00e0 unica al mondo \u2013 il 90% delle specie non esiste in nessun\u2019altro posto sulla Terra.\n\n\u{1F5FA}\uFE0F Spostamenti: voli interni + auto con autista\n\n\u{1F4B0} Costo stimato per persona (gruppo di 6, luglio\u2013agosto):\n\u2708\uFE0F Volo A/R MXP\u2192TNR (Antananarivo, scalo): ~950 \u20ac\n\u2708\uFE0F Voli interni TNR\u2192MJN (Nosy Be) + rientro: ~180 \u20ac\n\uD83D\uDE97 Minivan con autista-guida 10gg (imperdibile in Madagascar): ~300 \u20ac\n\uD83C\uDFE8 Alloggio 14 notti (3 camere, lodge/bungalow/hotel): ~680 \u20ac\n\uD83C\uDF7D\uFE0F Vitto 15 giorni: ~380 \u20ac\n\uD83C\uDFDE\uFE0F Ingressi parchi (Andasibe, Mantadia, Isalo + riserve): ~90 \u20ac\n\uD83D\uDEE1\uFE0F Assicurazione viaggio completa con evacuazione medica (obbligatoria): ~90 \u20ac\n\uD83D\uDCCA Totale stimato: ~2.670\u20132.870 \u20ac a persona.',
+    itinerary: [
+      'Volo Italia \u2192 Antananarivo (TNR), arrivo, trasferimento in hotel, primo contatto con la capitale malgascia.',
+      'Antananarivo \u2192 Andasibe (~150 km, 3h) \u2013 foresta pluviale, prime passeggiate serali per camaleonti e rane fogliacee.',
+      'Andasibe \u2013 Alba nella riserva: indri che cantano (il call pi\u00f9 potente dei primati), sifaka di Milne-Edwards, camaleonti di giorno.',
+      'Parco di Mantadia \u2013 Trekking nella foresta primaria, lemuri marrone, diademed sifaka, orchidee selvatiche, paesaggio primordiale.',
+      'Andasibe \u2192 Antananarivo \u2192 Fianarantsoa (volo o auto lungo giorno, ~400 km) \u2013 altopiani, risaie terrazzate, paesaggi collinari.',
+      'Fianarantsoa \u2192 Isalo (~200 km) \u2013 la savana cede ai primi affioramenti di arenaria rossa, arrivo al parco, cena al lodge con vista.',
+      'Isalo \u2013 Trekking nella Piscine Naturelle (acqua cristallina in un canyon) e Piscine Noire, lemuri catta e sifaka di Verreaux sulle rocce.',
+      'Isalo \u2013 Canyon des Makis e Canyon des Rats: formazioni rocciose surreali, tramonto sui \'finestre\' di pietra. La luce arancione del Sunset.',
+      'Isalo \u2192 Tulear / Ifaty (~150 km) \u2013 discesa verso la costa, prima visione dell\u2019oceano Indiano, baobab lungo la pista.',
+      'Ifaty \u2013 Snorkeling sulla barriera corallina, villaggio di pescatori Vezo, foresta di baobab nel pomeriggio.',
+      'Tulear \u2192 Antananarivo (volo interno) \u2192 Nosy Be (volo) \u2013 arrivo sull\u2019isola tropicale, check-in bungalow, tramonto sul Mar di Mozambico.',
+      'Nosy Be \u2013 Spiaggia di Andilana o Madirokely, mare a 26\u00b0C, snorkeling tra pesci tropicali, relax totale.',
+      'Nosy Be \u2013 Escursione in barca alle isole vicine (Nosy Komba con i lemuri neri sulla spiaggia, Nosy Tanikely riserva marina, tartarughe).',
+      'Nosy Be \u2013 Whale watching (luglio\u2013agosto: balene megattere in migrazione), ultimo snorkeling, cena sul mare.',
+      'Nosy Be \u2013 Mattina libera, volo di rientro per l\u2019Italia via Antananarivo.',
     ]
   },
 ];
