@@ -388,7 +388,16 @@
     }
     .mete-card-title { font-size: 1.05rem; font-weight: 800; margin-bottom: 4px; letter-spacing: -0.3px; }
     .mete-card-days { font-size: 0.73rem; color: var(--muted); font-weight: 500; margin-bottom: 9px; }
-    .mete-card-desc { font-size: 0.8rem; color: rgba(255,255,255,0.68); line-height: 1.55; white-space: pre-wrap; margin-bottom: 12px; }
+    .mete-card-desc { font-size: 0.8rem; color: rgba(255,255,255,0.68); line-height: 1.55; white-space: pre-wrap; margin-bottom: 14px; }
+    .mete-stats-title { font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); margin-bottom: 8px; }
+    .mete-stats { display: flex; flex-direction: column; gap: 7px; margin-bottom: 14px;
+      background: rgba(0,0,0,0.25); border: 1px solid var(--glass-border); border-radius: 12px; padding: 12px 14px; }
+    .mete-stat-row { display: flex; align-items: center; gap: 10px; }
+    .mete-stat-label { font-size: 0.72rem; color: rgba(255,255,255,0.55); flex: 0 0 145px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .mete-stat-label span { margin-right: 4px; }
+    .mete-stat-track { flex: 1; display: flex; gap: 4px; }
+    .mete-stat-seg { flex: 1; height: 7px; border-radius: 4px; background: rgba(255,255,255,0.08); transition: background .2s; }
+    .mete-stat-seg.on { background: var(--accent); }
     .mete-itin-toggle {
       display: flex; align-items: center; gap: 6px;
       background: rgba(139,92,246,0.1);
@@ -660,7 +669,24 @@ function flagImg(code, h) {
 }
 function destFlagImg(name, h) { return flagImg(DEST_CODES[name] || '', h); }
 
-const PARAMS = [
+const DEST_STATS = {
+  'USA \u2013 Route 66':            { sex:3, exp:5, eco:3, road:5, cool:5 },
+  'USA \u2013 Grandi Parchi':       { sex:2, exp:5, eco:2, road:5, cool:5 },
+  'USA \u2013 West Coast & Parchi': { sex:3, exp:4, eco:2, road:4, cool:4 },
+  'Mykonos':                        { sex:5, exp:2, eco:1, road:1, cool:4 },
+  'Canada':                         { sex:2, exp:4, eco:3, road:4, cool:4 },
+  'Argentina':                      { sex:4, exp:5, eco:3, road:4, cool:5 },
+  'Toscana \u2013 Capo Nord':       { sex:1, exp:5, eco:2, road:5, cool:5 },
+  'Sudafrica':                      { sex:2, exp:5, eco:2, road:3, cool:5 },
+};
+
+function renderStatBar(val) {
+  var s = '';
+  for (var i = 1; i <= 5; i++) s += '<div class="mete-stat-seg' + (i <= val ? ' on' : '') + '"></div>';
+  return '<div class="mete-stat-track">' + s + '</div>';
+}
+
+
   { id: 'sex',  emoji: '\u{1F351}', label: 'Facilit\u00e0 di scopare', hint: '1=difficile \u00b7 5=facilissimo' },
   { id: 'exp',  emoji: '\u{1F30D}', label: 'Esperienze',               hint: '1=poche \u00b7 5=tantissime' },
   { id: 'eco',  emoji: '\u{1F4B8}', label: 'Economicit\u00e0',         hint: '1=costosissima \u00b7 5=super economica' },
@@ -928,10 +954,21 @@ function closeModal() {
 function openMetePanel() {
   var body = document.getElementById('mete-panel-body');
   body.innerHTML = DESTINATIONS.map(function(d, i) {
+    var st = DEST_STATS[d.name] || {};
+    var statsHtml = '<div class="mete-stats">' +
+      '<div class="mete-stats-title">📊 Report oggettivo</div>' +
+      PARAMS.filter(function(p){ return p.id !== 'want'; }).map(function(p) {
+        return '<div class="mete-stat-row">' +
+          '<div class="mete-stat-label"><span>' + p.emoji + '</span>' + p.label + '</div>' +
+          renderStatBar(st[p.id] || 0) +
+        '</div>';
+      }).join('') +
+    '</div>';
     return '<div class="mete-card">' +
       '<div class="mete-card-title">' + destFlagImg(d.name, 26) + ' ' + d.name + '</div>' +
       '<div class="mete-card-days">&#x1F4C5; ' + d.days + ' giorni</div>' +
       '<div class="mete-card-desc">' + d.desc + '</div>' +
+      statsHtml +
       '<button class="mete-itin-toggle" onclick="toggleMeteItin(' + i + ')">' +
         '&#x1F4CB; Itinerario <span id="mia-' + i + '">▼</span>' +
       '</button>' +
