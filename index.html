@@ -258,6 +258,68 @@
     }
     .itin-toggle:active { background: rgba(255,255,255,0.13); }
 
+    /* === PANEL METE === */
+    .mete-panel {
+      display: none;
+      position: fixed; inset: 0;
+      background: #0f0f1a;
+      z-index: 998;
+      overflow-y: auto;
+      padding-bottom: 60px;
+    }
+    .mete-panel.open { display: block; }
+
+    .mete-panel-header {
+      position: sticky; top: 0;
+      background: #0f0f1a;
+      padding: 18px 18px 14px;
+      display: flex; align-items: center; justify-content: space-between;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      z-index: 1;
+    }
+    .mete-panel-header h2 { font-size: 1.1rem; font-weight: 800; margin: 0; }
+    .mete-panel-close {
+      background: rgba(255,255,255,0.1);
+      border: none; color: #fff; border-radius: 50%;
+      width: 34px; height: 34px; font-size: 1.1rem; cursor: pointer;
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+    .mete-card {
+      margin: 14px 14px 0;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 16px; padding: 16px;
+    }
+    .mete-card-title {
+      font-size: 1.05rem; font-weight: 800;
+      margin-bottom: 4px;
+    }
+    .mete-card-days { font-size: 0.75rem; opacity: 0.5; font-weight: 500; margin-bottom: 8px; }
+    .mete-card-desc {
+      font-size: 0.8rem; opacity: 0.7; line-height: 1.55;
+      white-space: pre-wrap; margin-bottom: 10px;
+    }
+    .mete-itin-toggle {
+      display: flex; align-items: center; gap: 6px;
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 10px; padding: 9px 12px;
+      font-size: 0.8rem; font-weight: 600; cursor: pointer;
+      color: #fff; width: 100%;
+    }
+    .mete-itin-list {
+      display: none; margin-top: 10px;
+      padding: 0; list-style: none;
+    }
+    .mete-itin-list.open { display: block; }
+    .mete-itin-list li {
+      font-size: 0.78rem; opacity: 0.75; line-height: 1.55;
+      padding: 6px 0; border-bottom: 1px solid rgba(255,255,255,0.06);
+      display: flex; gap: 8px;
+    }
+    .mete-itin-list li:last-child { border-bottom: none; }
+    .mete-day-num { font-weight: 700; color: #a78bfa; min-width: 58px; flex-shrink: 0; }
+
     .itin-section {
       display: none; margin-top: 10px;
       background: rgba(255,255,255,0.04);
@@ -374,6 +436,15 @@
 </head>
 <body>
 
+<!-- PANEL METE -->
+<div class="mete-panel" id="metePanel">
+  <div class="mete-panel-header">
+    <h2>&#x1F5FA;&#xFE0F; Tutte le mete</h2>
+    <button class="mete-panel-close" onclick="closeMetePanel()">&#x2715;</button>
+  </div>
+  <div id="mete-panel-body"></div>
+</div>
+
 <!-- MODAL SCOPATA -->
 <div class="modal-overlay" id="sexModal">
   <div class="modal-box">
@@ -435,11 +506,12 @@
         <div>Ottieni la <strong>classifica personalizzata</strong> basata sui tuoi voti e pesi.</div>
       </div>
     </div>
-    <p>Ci sono <strong>7 mete</strong> da valutare.</p>
+    <p>Ci sono <strong>8 mete</strong> da valutare.</p>
     <div style="margin-top:18px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:13px 14px;font-size:0.75rem;opacity:0.6;line-height:1.5;font-style:italic;">
       ⚠️ Ogni dato qua dentro è realistico. Soltanto che non avevo voglia di impegnarmi troppo, quindi ha fatto tutto ChatGPT.
     </div>
   </div>
+  <button class="btn btn-secondary" onclick="openMetePanel()" style="margin-bottom:12px">&#x1F5FA;&#xFE0F; Vedi le mete</button>
   <button class="btn btn-primary" onclick="startDestinations()">Inizia &#x1F680;</button>
 </div>
 
@@ -653,6 +725,26 @@ const DESTINATIONS = [
       'Rientro – trasferimento a Oslo, volo per l\'Italia.',
     ]
   },
+  { name: 'Toscana \u2013 Capo Nord',   flag: '\u{1F1EE}\u{1F1F9}\u{1F6D1}', days: 15,
+    desc: 'Il road trip europeo definitivo: si parte dalla Toscana e si arriva al punto pi\u00f9 a nord d\'Europa in auto, attraversando 7 paesi. Andata e ritorno, 15 giorni, zero aerei. Follia pura.\n\n\u{1F5FA}\uFE0F Distanza totale: ~7.500\u20138.000 km\n\n\u{1F4B0} Costo stimato tutto compreso: ~2.500\u20134.000 \u20ac a persona.',
+    itinerary: [
+      'Toscana \u2192 Torino – partenza, valico alpino del Moncenisio o tunnel del Fr\u00e9jus, prima notte in Francia.',
+      'Francia \u2192 Belgio – Lione, Bruxelles, belle autostrade nordeuropee.',
+      'Belgio \u2192 Amsterdam – canali, stroopwafel, notte nei Paesi Bassi.',
+      'Amsterdam \u2192 Amburgo – Paesi Bassi e Germania del nord, porto di Amburgo.',
+      'Amburgo \u2192 Copenaghen – confine danese, Copenaghen by night.',
+      'Copenaghen \u2192 Oslo – ponte di \u00d8resund, Malm\u00f6, foreste svedesi, arrivo in Norvegia.',
+      'Oslo \u2192 Lillehammer \u2192 Domb\u00e5s – paesaggi sempre pi\u00f9 selvaggi.',
+      'Domb\u00e5s \u2192 Trondheim \u2192 inizio dell\'E6 verso nord – la strada che porta a Capo Nord.',
+      'E6 nord \u2192 Bod\u00f8 – si attraversa il Circolo Polare Artico. Luce perpetua.',
+      'Bod\u00f8 \u2192 traghetto \u2192 Lofoten – villaggi di pescatori rossi, montagne che escono dal mare.',
+      'Lofoten \u2192 Troms\u00f8 – aurora boreale (inverno) o sole di mezzanotte (estate).',
+      'Troms\u00f8 \u2192 Alta \u2192 Capo Nord \u2013 si arriva. Punto pi\u00f9 a nord d\'Europa. Foto al cartello. Si piange.',
+      'Capo Nord \u2192 Troms\u00f8 \u2192 volo interno \u2192 Stoccolma – inizio del rientro.',
+      'Stoccolma \u2192 Copenaghen \u2192 Amburgo – km macinati verso sud.',
+      'Amburgo \u2192 Monaco \u2192 Brennero \u2192 Toscana – a casa. Pasta. Si piange di nuovo.',
+    ]
+  },
 ];
 
 let destIndex    = 0;
@@ -753,6 +845,38 @@ function setDestParam(paramId, val) {
 
 function closeModal() {
   document.getElementById('sexModal').classList.remove('open');
+}
+
+function openMetePanel() {
+  var body = document.getElementById('mete-panel-body');
+  body.innerHTML = DESTINATIONS.map(function(d, i) {
+    return '<div class="mete-card">' +
+      '<div class="mete-card-title">' + d.flag + ' ' + d.name + '</div>' +
+      '<div class="mete-card-days">&#x1F4C5; ' + d.days + ' giorni</div>' +
+      '<div class="mete-card-desc">' + d.desc + '</div>' +
+      '<button class="mete-itin-toggle" onclick="toggleMeteItin(' + i + ')">' +
+        '&#x1F4CB; Itinerario <span id="mia-' + i + '">▼</span>' +
+      '</button>' +
+      '<ul class="mete-itin-list" id="mil-' + i + '">' +
+        d.itinerary.map(function(step, j) {
+          return '<li><span class="mete-day-num">Giorno ' + (j + 1) + '</span>' + step + '</li>';
+        }).join('') +
+      '</ul>' +
+    '</div>';
+  }).join('');
+  document.getElementById('metePanel').classList.add('open');
+  document.getElementById('metePanel').scrollTop = 0;
+}
+
+function closeMetePanel() {
+  document.getElementById('metePanel').classList.remove('open');
+}
+
+function toggleMeteItin(i) {
+  var list  = document.getElementById('mil-' + i);
+  var arrow = document.getElementById('mia-' + i);
+  list.classList.toggle('open');
+  arrow.textContent = list.classList.contains('open') ? '▲' : '▼';
 }
 
 function nextDest() {
