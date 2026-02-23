@@ -726,7 +726,7 @@ const DEST_STATS = {
   'Argentina':                      { sex:4, exp:5, eco:3, road:4, cool:5 },
   'Toscana \u2013 Capo Nord':       { sex:1, exp:5, eco:2, road:5, cool:5 },
   'Sudafrica':                      { sex:2, exp:5, eco:2, road:3, cool:5 },
-  'Thailandia':                     { sex:4, exp:4, eco:4, road:2, cool:4 },
+  'Thailandia':                     { sex:5, exp:4, eco:4, road:2, cool:4 },
   'Per\u00f9':                       { sex:2, exp:5, eco:3, road:3, cool:5 },
   'Namibia':                        { sex:1, exp:5, eco:2, road:5, cool:5 },
   'Madagascar':                      { sex:2, exp:5, eco:3, road:4, cool:5 },
@@ -739,7 +739,7 @@ function renderStatBar(val) {
 }
 
 const PARAMS = [
-  { id: 'sex',  emoji: '\u{1F351}', label: 'Facilit\u00e0 di scopare', hint: '1=difficile \u00b7 5=facilissimo' },
+  { id: 'sex',  emoji: '\u{1F351}', label: 'Sex Index', hint: '1=incellandia \u00b7 5=paradiso' },
   { id: 'exp',  emoji: '\u{1F30D}', label: 'Esperienze',               hint: '1=poche \u00b7 5=tantissime' },
   { id: 'eco',  emoji: '\u{1F4B8}', label: 'Economicit\u00e0',         hint: '1=costosissima \u00b7 5=super economica' },
   { id: 'road', emoji: '\u{1F6FB}', label: 'On the road',              hint: '1=stanziale \u00b7 5=piena libert\u00e0' },
@@ -1106,8 +1106,9 @@ function showSexInfo(idx) {
   var info = DEST_SEX_INFO[dest.name] || {};
   var figaLabel = FIGA_LABELS[info.figa] || '?';
   var darebbe = info.darebbe;
-  document.getElementById('sexInfoTitle').textContent = '🔎 Scopabilit\u00e0 – ' + dest.name;
+  document.getElementById('sexInfoTitle').textContent = '🔎 Sex Index – ' + dest.name;
   document.getElementById('sexInfoTable').innerHTML =
+    '<tr><td><strong>Sex Index</strong></td><td><strong>' + ((DEST_STATS[dest.name] || {}).sex || '?') + ' / 5</strong></td></tr>' +
     '<tr><td>C\u2019\u00e8 figa?</td><td>' + figaLabel + '</td></tr>' +
     '<tr><td>Ce la darebbero?</td><td class="' + (darebbe ? 'sex-info-yes' : 'sex-info-no') + '">' + (darebbe ? 'SI 🤩' : 'NO 😔') + '</td></tr>';
   document.getElementById('sexInfoModal').classList.add('open');
