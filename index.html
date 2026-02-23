@@ -1124,8 +1124,9 @@ function openMetePanel() {
     var statsHtml = '<div class="mete-stats">' +
       '<div class="mete-stats-title">📊 Report oggettivo</div>' +
       PARAMS.filter(function(p){ return p.id !== 'want'; }).map(function(p) {
+        var infoBtn = p.id === 'sex' ? ' <button class="sex-info-btn" onclick="showSexInfo(' + i + ')" title="Dettagli scopabilit\u00e0">\u2139\uFE0F</button>' : '';
         return '<div class="mete-stat-row">' +
-          '<div class="mete-stat-label"><span>' + p.emoji + '</span>' + p.label + '</div>' +
+          '<div class="mete-stat-label"><span>' + p.emoji + '</span>' + p.label + infoBtn + '</div>' +
           renderStatBar(st[p.id] || 0) +
         '</div>';
       }).join('') +
