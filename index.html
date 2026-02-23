@@ -145,7 +145,7 @@
       -webkit-backdrop-filter: blur(16px);
     }
 
-    .dest-flag { font-size: 3rem; flex-shrink: 0; margin-top: 2px; filter: drop-shadow(0 4px 12px rgba(0,0,0,0.4)); }
+    .dest-flag { flex-shrink: 0; margin-top: 6px; }
     .dest-name {
       font-size: 1.25rem; font-weight: 800; letter-spacing: -0.5px;
       background: linear-gradient(135deg, #fbbf24, #fb923c);
@@ -484,7 +484,7 @@
       display: flex; flex-direction: column; align-items: center; gap: 6px;
       backdrop-filter: blur(16px);
     }
-    .joke-dest-flag { font-size: 3.2rem; line-height: 1; filter: drop-shadow(0 4px 16px rgba(0,0,0,0.4)); }
+    .joke-dest-flag { line-height: 1; margin-bottom: 4px; }
     .joke-dest-name { font-size: 2.1rem; font-weight: 900; text-align: center; letter-spacing: -1px; margin-bottom: 16px; }
     .joke-img-wrap { width: 100%; border-radius: 16px; overflow: hidden; }
     .joke-img-wrap img { width: 100%; height: 240px; object-fit: cover; display: block; border-radius: 16px; }
@@ -641,6 +641,24 @@ const JB_BIN_ID = '699ca76cd0ea881f40d2b439';
 const JB_KEY    = '$2a$10$ooqx9TmkgOSYGKJ7J/GDruT5gWEuBO1r/.VWzRHQbJXoNuil/Lq0q';
 const JB_API    = 'https://api.jsonbin.io/v3/b/' + JB_BIN_ID;
 // ─────────────────────────────────────────────────────────────────
+
+const DEST_CODES = {
+  'USA \u2013 Route 66':            'us',
+  'USA \u2013 Grandi Parchi':       'us',
+  'USA \u2013 West Coast & Parchi': 'us',
+  'Mykonos':                        'gr',
+  'Canada':                         'ca',
+  'Argentina':                      'ar',
+  'Toscana \u2013 Capo Nord':       'it',
+  'Sudafrica':                      'za',
+};
+const JOKE_CODES = { 'Catanzaro Lido': 'it', 'Tel Aviv': 'il', 'Palestina': 'ps', 'Nuova Delhi': 'in' };
+
+function flagImg(code, h) {
+  if (!code) return '';
+  return '<img src="https://flagcdn.com/w80/' + code + '.png" height="' + (h || 24) + '" style="border-radius:3px;vertical-align:middle;display:inline-block" alt="' + code.toUpperCase() + '">';
+}
+function destFlagImg(name, h) { return flagImg(DEST_CODES[name] || '', h); }
 
 const PARAMS = [
   { id: 'sex',  emoji: '\u{1F351}', label: 'Facilit\u00e0 di scopare', hint: '1=difficile \u00b7 5=facilissimo' },
@@ -853,7 +871,7 @@ function renderDest() {
   var oldItin = document.getElementById('itinArea');
   if (oldItin) oldItin.remove();
   document.getElementById('destHeader').innerHTML =
-    '<div class="dest-flag">' + dest.flag + '</div>' +
+    '<div class="dest-flag">' + destFlagImg(dest.name, 52) + '</div>' +
     '<div class="dest-info">' +
       '<div class="dest-name">' + dest.name + '</div>' +
       '<div class="dest-days">&#x1F4C5; ' + dest.days + ' giorni</div>' +
@@ -911,7 +929,7 @@ function openMetePanel() {
   var body = document.getElementById('mete-panel-body');
   body.innerHTML = DESTINATIONS.map(function(d, i) {
     return '<div class="mete-card">' +
-      '<div class="mete-card-title">' + d.flag + ' ' + d.name + '</div>' +
+      '<div class="mete-card-title">' + destFlagImg(d.name, 26) + ' ' + d.name + '</div>' +
       '<div class="mete-card-days">&#x1F4C5; ' + d.days + ' giorni</div>' +
       '<div class="mete-card-desc">' + d.desc + '</div>' +
       '<button class="mete-itin-toggle" onclick="toggleMeteItin(' + i + ')">' +
@@ -1017,7 +1035,7 @@ function calcResults() {
 
   // Mostra scherzo prima dei risultati reali
   var joke = JOKE_DESTS[Math.floor(Math.random() * JOKE_DESTS.length)];
-  document.getElementById('jokeFlag').textContent = joke.flag;
+  document.getElementById('jokeFlag').innerHTML = flagImg(JOKE_CODES[joke.name] || '', 64);
   document.getElementById('jokeName').textContent = joke.name;
   document.getElementById('jokeFallbackEmoji').textContent = joke.emoji;
   var img = document.getElementById('jokeImg');
@@ -1061,7 +1079,7 @@ function renderResults(scored) {
     }).join('');
     return '<div class="result-card ' + cls + '">' +
       '<div class="result-rank">' + medal + '</div>' +
-      '<div class="result-name"><span class="result-flag">' + dest.flag + '</span>' + dest.name + '</div>' +
+      '<div class="result-name">' + destFlagImg(dest.name, 28) + ' ' + dest.name + '</div>' +
       '<div class="result-meta">&#x1F4C5; ' + dest.days + ' giorni</div>' +
       '<div class="result-desc">' + dest.desc.replace(/\n\n/g, '<br><br>') + '</div>' +
       '<div class="result-score-bar"><div class="result-score-fill" style="width:' + dest.pct + '%"></div></div>' +
@@ -1112,6 +1130,7 @@ async function saveAndShowLeaderboard() {
       name: currentUser,
       dest: top.name,
       flag: top.flag,
+      code: DEST_CODES[top.name] || '',
       date: new Date().toISOString().slice(0, 10)
     });
     await dbWrite(data);
@@ -1161,7 +1180,7 @@ function renderLeaderboard(results) {
     html += '<div class="lb-rank-row">' +
       '<div class="lb-medal">' + medal + '</div>' +
       '<div class="lb-rank-info">' +
-        '<div class="lb-rank-name">' + r.flag + ' ' + r.dest + '</div>' +
+        '<div class="lb-rank-name">' + flagImg(r.code || '', 22) + ' ' + r.dest + '</div>' +
         '<div class="lb-bar-wrap"><div class="lb-bar-fill" style="width:' + pct + '%"></div></div>' +
       '</div>' +
       '<div class="lb-count">' + r.count + (r.count === 1 ? ' voto' : ' voti') + '</div>' +
@@ -1174,7 +1193,7 @@ function renderLeaderboard(results) {
   sorted.forEach(function(r) {
     html += '<div class="lb-user-row">' +
       '<div class="lb-user-name">\u{1F464} ' + r.name + '</div>' +
-      '<div class="lb-user-dest">' + r.flag + ' ' + r.dest + '</div>' +
+      '<div class="lb-user-dest">' + flagImg(r.code || '', 18) + ' ' + r.dest + '</div>' +
       '<div class="lb-user-date">' + r.date + '</div>' +
     '</div>';
   });
