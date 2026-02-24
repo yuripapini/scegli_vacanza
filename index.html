@@ -681,10 +681,10 @@ const DEST_CODES = {
   'USA \u2013 Grandi Parchi':       'us',
   'USA \u2013 West Coast & Parchi': 'us',
   'Mykonos':                        'gr',
+  'Mykonos + Pag':                   'hr',
   'Canada':                         'ca',
   'Canada + USA Est':               'ca',
   'Argentina':                      'ar',
-  'Toscana \u2013 Capo Nord':       'it',
   'Thailandia':                     'th',
   'Per\u00f9':                       'pe',
 };
@@ -703,10 +703,10 @@ const DEST_SEX_INFO = {
   'USA \u2013 Grandi Parchi':       { figa: 3, darebbe: false },
   'USA \u2013 West Coast & Parchi': { figa: 1, darebbe: true  },
   'Mykonos':                        { figa: 1, darebbe: true  },
+  'Mykonos + Pag':                   { figa: 1, darebbe: true  },
   'Canada':                         { figa: 2, darebbe: false },
   'Canada + USA Est':               { figa: 2, darebbe: true  },
   'Argentina':                      { figa: 1, darebbe: true  },
-  'Toscana \u2013 Capo Nord':       { figa: 3, darebbe: false },
   'Thailandia':                     { figa: 5, darebbe: true  },
   'Per\u00f9':                       { figa: 2, darebbe: false },
 };
@@ -716,10 +716,10 @@ const DEST_STATS = {
   'USA \u2013 Grandi Parchi':       { sex:2, exp:5, eco:2, road:5, cool:5 },
   'USA \u2013 West Coast & Parchi': { sex:3, exp:4, eco:2, road:4, cool:4 },
   'Mykonos':                        { sex:5, exp:2, eco:1, road:1, cool:4 },
+  'Mykonos + Pag':                   { sex:5, exp:2, eco:1, road:1, cool:5 },
   'Canada':                         { sex:2, exp:4, eco:3, road:4, cool:4 },
   'Canada + USA Est':               { sex:3, exp:4, eco:2, road:4, cool:4 },
   'Argentina':                      { sex:4, exp:5, eco:3, road:4, cool:5 },
-  'Toscana \u2013 Capo Nord':       { sex:1, exp:5, eco:2, road:5, cool:5 },
   'Thailandia':                     { sex:5, exp:4, eco:4, road:2, cool:4 },
   'Per\u00f9':                       { sex:2, exp:5, eco:3, road:3, cool:5 },
 };
@@ -742,8 +742,6 @@ const PARAMS = [
 const DESTINATIONS = [
   { name: 'USA \u2013 Route 66',        flag: '\u{1F1FA}\u{1F1F8}', days: 15,
     desc: 'Da Chicago a Santa Monica lungo la Mother Road: diner retr\u00f2, deserti rossi, insegne al neon e 4.000 km di asfalto leggendario. Lungo il percorso: il Gateway Arch di St. Louis, i ranch texani di Amarillo, Santa Fe, il Grand Canyon, Monument Valley, Horseshoe Bend e Las Vegas prima del gran finale sul Pier di Santa Monica. L\u2019America on the road fatta per davvero.\n\n\u{1F5FA}\uFE0F Distanza totale: ~4.000 km (Chicago \u2192 Santa Monica)\n\n\u{1F4B0} Costo stimato per persona (gruppo di 6, seconda met\u00e0 agosto, 3pp/auto):\n\u2708\uFE0F Volo A/R MXP\u2192ORD + LAX\u2192MXP (open-jaw): ~1.100 \u20ac\n\uD83D\uDE97 2 auto 15gg + carburante (~4.200 km, 3pp/auto): ~700 \u20ac\n\uD83C\uDFDE\uFE0F America the Beautiful Pass 2026 ($250/auto \u00d7 2): ~80 \u20ac\n\uD83C\uDFE8 Alloggio 14 notti (3 camere, motel/hotel): ~550 \u20ac\n\uD83C\uDF54 Vitto 15 giorni: ~400 \u20ac\n\uD83D\uDEE1\uFE0F Assicurazione viaggio completa (Allianz/Unipol, 6pp): ~130 \u20ac\n\uD83D\uDCCA Totale stimato: ~2.960 \u20ac a persona.',
-    mapSrc: null,
-    mapLink: null,
     itinerary: [
       'Volo MXP\u2192ORD (Chicago), arrivo, Magnificent Mile, Navy Pier, cena con deep dish pizza.',
       'Chicago \u2013 The Bean, Willis Tower Skydeck, Museum Campus, aperitivo sul lago Michigan.',
@@ -764,8 +762,6 @@ const DESTINATIONS = [
   },
   { name: 'USA \u2013 Grandi Parchi',       flag: '\u{1F1FA}\u{1F1F8}', days: 15,
     desc: 'Las Vegas come base di partenza e punto di ritorno. In mezzo: Zion, Bryce Canyon, Capitol Reef, Canyonlands, Arches, Moab, Monument Valley, Horseshoe Bend e il Grand Canyon. Il meglio dell\u2019altopiano del Colorado in un unico loop da 15 giorni. Niente coste, niente citt\u00e0. Solo canyon, dune e cieli stellati.\n\n\u{1F5FA}\uFE0F Distanza totale: ~2.800 km (loop da Las Vegas)\n\n\u{1F4B0} Costo stimato per persona (gruppo di 6, seconda met\u00e0 agosto, 3pp/auto):\n\u2708\uFE0F Volo A/R MXP\u2192LAS (scalo): ~1.100 \u20ac\n\uD83D\uDE97 2 auto 15gg + carburante (~2.800 km, 3pp/auto): ~700 \u20ac\n\uD83C\uDFDE\uFE0F America the Beautiful Pass 2026 ($250/auto \u00d7 2): ~80 \u20ac\n\uD83C\uDFE8 Alloggio 14 notti (3 camere, mix lodge/motel): ~550 \u20ac\n\uD83C\uDF54 Vitto 15 giorni: ~400 \u20ac\n\uD83D\uDEE1\uFE0F Assicurazione viaggio completa (Allianz/Unipol, 6pp): ~130 \u20ac\n\uD83D\uDCCA Totale stimato: ~2.960 \u20ac a persona.',
-    mapSrc: null,
-    mapLink: null,
     itinerary: [
       'Volo MXP\u2192LAS (scalo), arrivo Las Vegas, check-in Strip, prima serata sul lungofiume di neon.',
       'Las Vegas \u2013 giornata libera: casin\u00f2, piscina, Fremont Street Experience.',
@@ -786,8 +782,6 @@ const DESTINATIONS = [
   },
   { name: 'USA \u2013 West Coast & Parchi', flag: '\u{1F1FA}\u{1F1F8}', days: 14,
     desc: 'Los Angeles, San Diego, Joshua Tree, Death Valley, Yosemite, San Francisco e la Highway 1 lungo Big Sur. Il meglio della California in 14 giorni: spiagge, deserti, sequoie e Golden Gate. Un loop che parte e finisce a LAX, tutto su strada, tutto diverso ogni giorno.\n\n\u{1F5FA}\uFE0F Distanza totale: ~3.200 km (loop da Los Angeles)\n\n\u{1F4B0} Costo stimato per persona (gruppo di 6, seconda met\u00e0 agosto, 3pp/auto):\n\u2708\uFE0F Volo A/R MXP\u2192LAX: ~1.100 \u20ac\n\uD83D\uDE97 2 auto 14gg + carburante (~3.200 km, 3pp/auto): ~700 \u20ac\n\uD83C\uDFDE\uFE0F America the Beautiful Pass 2026 ($250/auto \u00d7 2): ~80 \u20ac\n\uD83C\uDFE8 Alloggio 13 notti (3 camere, hotel/motel): ~550 \u20ac\n\uD83C\uDF54 Vitto 14 giorni: ~400 \u20ac\n\uD83D\uDEE1\uFE0F Assicurazione viaggio completa (Allianz/Unipol, 6pp): ~130 \u20ac\n\uD83D\uDCCA Totale stimato: ~2.960 \u20ac a persona.',
-    mapSrc: null,
-    mapLink: null,
     itinerary: [
       'Volo MXP\u2192LAX, ritiro auto, check-in, tramonto a Santa Monica e Venice Beach.',
       'Los Angeles \u2013 Bel-Air, Beverly Hills, Hollywood Boulevard, Griffith Observatory.',
@@ -807,8 +801,6 @@ const DESTINATIONS = [
   },
   { name: 'Mykonos',                    flag: '\u{1F1EC}\u{1F1F7}', days: 5,
     desc: 'Ah i paesaggi, i tramonti, l\'architettura cicladica... ma dai. Ma la figa? Non scopate ugualmente tanto.\n\n\u{1F5FA}\uFE0F Spostamenti interni (taxi/quad): ~100 km\n\n\u{1F4B0} Costo stimato per persona (gruppo di 6, luglio\u2013agosto):\n\u2708\uFE0F Volo A/R (low cost da Milano): ~220 \u20ac\n\uD83C\uDFE8 Alloggio 5 notti (villa/3 camere, alta stagione): ~700 \u20ac\n\uD83C\uDF7D\uFE0F Cibo + beach club + cocktail 5 giorni: ~500 \u20ac\n\uD83D\uDEF5 Taxi e quad: ~150 \u20ac\n\uD83D\uDCCA Totale stimato: ~1.570\u20131.780 \u20ac a persona.',
-    mapSrc: null,
-    mapLink: null,
     itinerary: [
       'Arrivo a Mykonos – check-in, spiaggia a Paradise Beach, serata al Tropicana Beach Club.',
       'Mykonos – mattina relax, pomeriggio e sera al Tropicana.',
@@ -817,10 +809,23 @@ const DESTINATIONS = [
       'Mykonos – ultime ore al Tropicana, poi rientro.',
     ]
   },
+  { name: 'Mykonos + Pag',             flag: '\u{1F1EC}\u{1F1F7}\u{1F1ED}\u{1F1F7}', days: 10,
+    desc: 'Cinque giorni a Mykonos \u2013 paesaggi cicladici, Tropicana Beach Club, tramonti e cocktail \u2013 poi traghetto in Croazia e cinque serate di fila a Zr\u0107e Beach, la Ibiza dei Balcani. Base: Novalja, sull\u2019isola di Pag. Diurno: spiaggia e sonno. Serale: Papaya, Aquarius, Kalypso e Noa non-stop fino all\u2019alba.\n\n\u{1F5FA}\uFE0F Trasferimento: traghetto Mykonos\u2192Pireo\u2192Split + bus Novalja (~1 giorno di viaggio)\n\n\u{1F4B0} Costo stimato per persona (gruppo di 6, luglio\u2013agosto):\n\u2708\uFE0F Volo A/R MXP\u2192ATH/JMK + SPU\u2192MXP (open-jaw, low cost): ~280 \u20ac\n\u26F4\uFE0F Traghetti Mykonos\u2192Pireo\u2192Split + bus Novalja: ~120 \u20ac\n\uD83C\uDFE8 Alloggio 5n Mykonos (villa/3 camere, alta stagione): ~700 \u20ac\n\uD83C\uDFE0 Alloggio 5n Novalja (3 camere, appartamento): ~300 \u20ac\n\uD83C\uDF7D\uFE0F Cibo + beach club + cocktail Mykonos 5gg: ~500 \u20ac\n\uD83C\uDF7B Cibo + aperitivi + club Pag 5gg: ~250 \u20ac\n\uD83D\uDEF5 Taxi/quad Mykonos + transfer Pag: ~180 \u20ac\n\uD83D\uDCCA Totale stimato: ~2.330 \u20ac a persona.',
+    itinerary: [
+      'Mykonos \u2013 arrivo, check-in, spiaggia a Paradise Beach, serata al Tropicana Beach Club.',
+      'Mykonos \u2013 mattina relax, pomeriggio e sera al Tropicana.',
+      'Mykonos \u2013 colazione tardi, Tropicana tutto il pomeriggio e party la sera.',
+      'Mykonos \u2013 giornata intera al Tropicana, mare + aperitivi + serata.',
+      'Mykonos \u2192 Pireo (traghetto) \u2013 partenza mattutina, navigazione di giorno, notte a bordo o ad Atene.',
+      'Pag / Novalja \u2013 arrivo via Split + bus, check-in, serata al Papaya Club: house e DJ internazionali dalle 23, open-air fino all\u2019alba.',
+      'Pag \u2013 relax in spiaggia di giorno. Sera all\u2019Aquarius: after-beach fino alle 20, poi main party dalle 22 con foam e techno non-stop.',
+      'Pag \u2013 colazione tarda. Party serale tra Kalypso (vocal house) e Noa Beach Club, open dalle 22 con vista mare e guest DJ.',
+      'Pag \u2013 giornata libera. Rotazione club Zr\u0107e (Papaya/Aquarius) dalle 23: festival vibe, balli fino al sunrise.',
+      'Pag \u2013 ultime ore di party (Noa o Aquarius dalle 22). Rientro mattutino verso Split e volo per casa.',
+    ]
+  },
   { name: 'Canada',                     flag: '\u{1F1E8}\u{1F1E6}', days: 12,
     desc: 'Vancouver, la Sea to Sky Highway verso Whistler, il trekking ai tre laghi di Joffre, l\'Icefields Parkway con i ghiacciai, Jasper, Moraine Lake all\'alba, Banff e i dinosauri di Drumheller. 12 giorni nell\'ovest canadese tra foreste pluviali, laghi turchesi e badlands.\n\n\u{1F5FA}\uFE0F Distanza su strada: ~1.800 km\n\n\u{1F4B0} Costo stimato per persona (gruppo di 6, estate):\n\u2708\uFE0F Volo A/R MXP\u2192YVR + YYC\u2192MXP (one-way): ~950 \u20ac\n\uD83D\uDE97 2 auto nol. 12gg (young driver fee CAD 30/gg + CDW): ~365 \u20ac\n\u26FD Carburante 2 auto (~1.800 km): ~80 \u20ac\n\uD83C\uDFDE\uFE0F Canada Discovery Pass (CAD 150/auto \u00d7 2): ~35 \u20ac\n\uD83C\uDFE8 Alloggio 11 notti (3 camere, mix hotel/lodge): ~500 \u20ac\n\uD83C\uDF54 Vitto 12 giorni (Canada \u00e8 caro): ~540 \u20ac\n\uD83D\uDEE1\uFE0F Assicurazione viaggio completa (Allianz/Unipol, 6pp): ~130 \u20ac\n\uD83D\uDCCA Totale stimato: ~2.600\u20132.800 \u20ac a persona.',
-    mapSrc: 'https://www.openstreetmap.org/export/embed.html?bbox=-128.0%2C49.0%2C-113.0%2C55.0&layer=mapnik',
-    mapLink: 'https://www.google.com/maps/dir/Vancouver,+BC/Whistler,+BC/Jasper,+AB/Lake+Louise,+AB/Banff,+AB/Drumheller,+AB/Calgary,+AB',
     itinerary: [
       'Arrivo a Vancouver – Downtown, Canada Place, seawall, cena in citt\u00e0.',
       'Vancouver – Stanley Park, quartieri caratteristici, lungomare.',
