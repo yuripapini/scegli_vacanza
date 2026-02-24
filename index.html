@@ -131,41 +131,6 @@
       padding: 14px 18px;
     }
 
-    .dest-stats {
-      padding: 6px 18px 14px;
-      border-top: 1px solid var(--glass-border);
-    }
-
-    .stats-title {
-      font-size: 0.65rem; font-weight: 700; color: var(--muted);
-      text-transform: uppercase; letter-spacing: 0.08em;
-      margin-bottom: 10px; margin-top: 12px;
-    }
-
-    .stat-row {
-      display: flex; align-items: center; gap: 10px;
-      margin-bottom: 8px;
-    }
-
-    .stat-label {
-      font-size: 0.72rem; font-weight: 600; color: rgba(255,255,255,0.75);
-      width: 130px; flex-shrink: 0;
-      display: flex; align-items: center; gap: 5px;
-    }
-
-    .stat-track {
-      flex: 1; display: flex; gap: 3px;
-    }
-
-    .stat-seg {
-      flex: 1; height: 7px; border-radius: 99px;
-      background: rgba(255,255,255,0.08);
-    }
-    .stat-seg.on {
-      background: linear-gradient(90deg, var(--accent), var(--accent2));
-      box-shadow: 0 0 6px rgba(245,158,11,0.4);
-    }
-
     .itin-toggle-btn {
       width: 100%;
       background: rgba(255,255,255,0.04);
@@ -230,26 +195,6 @@ const DEST_CODES = {
   'Thailandia':                      'th',
   'Per\u00f9':                       'pe',
 };
-
-const DEST_STATS = {
-  'USA \u2013 Route 66':             { sex:3, exp:5, eco:3, road:5, cool:5 },
-  'USA \u2013 Grandi Parchi':        { sex:2, exp:5, eco:2, road:5, cool:5 },
-  'USA \u2013 West Coast & Parchi':  { sex:3, exp:4, eco:2, road:4, cool:4 },
-  'Mykonos':                         { sex:5, exp:2, eco:1, road:1, cool:4 },
-  'Mykonos + Pag':                   { sex:5, exp:2, eco:1, road:1, cool:5 },
-  'Canada':                          { sex:2, exp:4, eco:3, road:4, cool:4 },
-  'Canada + USA Est':                { sex:3, exp:4, eco:2, road:4, cool:4 },
-  'Thailandia':                      { sex:5, exp:4, eco:4, road:2, cool:4 },
-  'Per\u00f9':                       { sex:2, exp:5, eco:3, road:3, cool:5 },
-};
-
-const STAT_LABELS = [
-  { id: 'sex',  emoji: '\uD83C\uDF51', label: 'Sex Index' },
-  { id: 'exp',  emoji: '\uD83C\uDF0D', label: 'Esperienze' },
-  { id: 'eco',  emoji: '\uD83D\uDCB8', label: 'Economicit\u00e0' },
-  { id: 'road', emoji: '\uD83D\uDE9B', label: 'On the road' },
-  { id: 'cool', emoji: '\uD83D\uDE0E', label: 'Quanto \u00e8 fica' },
-];
 
 const DESTINATIONS = [
   { name: 'USA \u2013 Route 66', days: 15,
@@ -418,12 +363,6 @@ function flagImg(code, size) {
   return '<img src="https:\/\/flagcdn.com\/w40\/' + code + '.png" width="' + (size||32) + '" style="border-radius:4px;display:block;" onerror="this.style.display=\'none\'">';
 }
 
-function renderStatBar(val) {
-  var s = '';
-  for (var i = 1; i <= 5; i++) s += '<div class="stat-seg' + (i <= val ? ' on' : '') + '"></div>';
-  return '<div class="stat-track">' + s + '</div>';
-}
-
 function toggleItin(btn, listId) {
   document.getElementById(listId).classList.toggle('open');
   btn.classList.toggle('open');
@@ -432,10 +371,6 @@ function toggleItin(btn, listId) {
 function renderCards() {
   document.getElementById('cardsGrid').innerHTML = DESTINATIONS.map(function(dest, idx) {
     var code = DEST_CODES[dest.name] || '';
-    var stats = DEST_STATS[dest.name] || {};
-    var statsRows = STAT_LABELS.map(function(s) {
-      return '<div class="stat-row"><div class="stat-label"><span>' + s.emoji + '</span>' + s.label + '</div>' + renderStatBar(stats[s.id] || 0) + '</div>';
-    }).join('');
     var listId = 'itin-' + idx;
     var days = dest.itinerary.map(function(step, j) {
       return '<div class="itin-day"><div class="itin-num">G' + (j+1) + '</div><div>' + step + '</div></div>';
@@ -445,8 +380,7 @@ function renderCards() {
       + '<div class="dest-meta"><div class="dest-name">' + dest.name + '</div>'
       + '<div class="dest-days">&#x1F4C5; ' + dest.days + ' giorni</div></div></div>'
       + '<div class="dest-desc">' + dest.desc.replace(/\n/g, '<br>') + '</div>'
-      + '<div class="dest-stats"><div class="stats-title">&#x1F4CA; Report oggettivo</div>' + statsRows + '</div>'
-      + '<button class="itin-toggle-btn" onclick="toggleItin(this,\'' + listId + '\')">&#x1F4CB; Itinerario<span class="arrow">&#x25BC;</span></button>'
+      + '<button class="itin-toggle-btn"' onclick="toggleItin(this,\'' + listId + '\')">&#x1F4CB; Itinerario<span class="arrow">&#x25BC;</span></button>'
       + '<div class="itin-list" id="' + listId + '">' + days + '</div>'
       + '</div>';
   }).join('');
