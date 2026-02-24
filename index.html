@@ -380,7 +380,7 @@ function renderCards() {
       + '<div class="dest-meta"><div class="dest-name">' + dest.name + '</div>'
       + '<div class="dest-days">&#x1F4C5; ' + dest.days + ' giorni</div></div></div>'
       + '<div class="dest-desc">' + dest.desc.replace(/\n/g, '<br>') + '</div>'
-      + '<button class="itin-toggle-btn"' onclick="toggleItin(this,\'' + listId + '\')">&#x1F4CB; Itinerario<span class="arrow">&#x25BC;</span></button>'
+      + '<button class="itin-toggle-btn" onclick="toggleItin(this,\'' + listId + '\')">&#x1F4CB; Itinerario<span class="arrow">&#x25BC;</span></button>'
       + '<div class="itin-list" id="' + listId + '">' + days + '</div>'
       + '</div>';
   }).join('');
