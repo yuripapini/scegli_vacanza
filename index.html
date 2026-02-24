@@ -569,7 +569,8 @@
   <div class="welcome-box" style="text-align:center">
     <span class="big-emoji">&#x1F30D;</span>
     <h1 style="font-size:1.6rem;font-weight:900;margin:0 0 4px">Scegli la tua vacanza</h1>
-    <p style="opacity:0.55;font-size:0.83rem;margin:0 0 26px">Il quiz delle scelte difficili</p>
+    <p style="opacity:0.55;font-size:0.83rem;margin:0 0 10px">Il quiz delle scelte difficili</p>
+    <p style="opacity:0.4;font-size:0.72rem;margin:0 0 22px;line-height:1.5">&#x1F4C5; Stime per la <strong>seconda met&agrave; di agosto</strong><br>&#x1F697; Prezzi auto calcolati su <strong>3 persone per auto</strong></p>
     <div class="name-input-wrap">
       <label class="name-label">Il tuo nome</label>
       <input class="name-input" id="nameInput" type="text" placeholder="Es. Marco" autocomplete="off" maxlength="30"
@@ -684,11 +685,8 @@ const DEST_CODES = {
   'Canada + USA Est':               'ca',
   'Argentina':                      'ar',
   'Toscana \u2013 Capo Nord':       'it',
-  'Sudafrica':                      'za',
   'Thailandia':                     'th',
   'Per\u00f9':                       'pe',
-  'Namibia':                        'na',
-  'Madagascar':                      'mg',
 };
 const JOKE_CODES = { 'Catanzaro Lido': 'it', 'Tel Aviv': 'il', 'Palestina': 'ps', 'Nuova Delhi': 'in' };
 
@@ -709,11 +707,8 @@ const DEST_SEX_INFO = {
   'Canada + USA Est':               { figa: 2, darebbe: true  },
   'Argentina':                      { figa: 1, darebbe: true  },
   'Toscana \u2013 Capo Nord':       { figa: 3, darebbe: false },
-  'Sudafrica':                      { figa: 4, darebbe: true  },
   'Thailandia':                     { figa: 5, darebbe: true  },
   'Per\u00f9':                       { figa: 2, darebbe: false },
-  'Namibia':                        { figa: 4, darebbe: false },
-  'Madagascar':                     { figa: 4, darebbe: true  },
 };
 
 const DEST_STATS = {
@@ -725,11 +720,8 @@ const DEST_STATS = {
   'Canada + USA Est':               { sex:3, exp:4, eco:2, road:4, cool:4 },
   'Argentina':                      { sex:4, exp:5, eco:3, road:4, cool:5 },
   'Toscana \u2013 Capo Nord':       { sex:1, exp:5, eco:2, road:5, cool:5 },
-  'Sudafrica':                      { sex:2, exp:5, eco:2, road:3, cool:5 },
   'Thailandia':                     { sex:5, exp:4, eco:4, road:2, cool:4 },
   'Per\u00f9':                       { sex:2, exp:5, eco:3, road:3, cool:5 },
-  'Namibia':                        { sex:1, exp:5, eco:2, road:5, cool:5 },
-  'Madagascar':                      { sex:2, exp:5, eco:3, road:4, cool:5 },
 };
 
 function renderStatBar(val) {
@@ -749,7 +741,7 @@ const PARAMS = [
 
 const DESTINATIONS = [
   { name: 'USA \u2013 Route 66',        flag: '\u{1F1FA}\u{1F1F8}', days: 15,
-    desc: 'Da Chicago a Santa Monica lungo la Mother Road: diner retr\u00f2, deserti rossi, insegne al neon e 4.000 km di asfalto leggendario. Lungo il percorso: il Gateway Arch di St. Louis, i ranch texani di Amarillo, Santa Fe, il Grand Canyon, Monument Valley, Horseshoe Bend e Las Vegas prima del gran finale sul Pier di Santa Monica. L\u2019America on the road fatta per davvero.\n\n\u{1F5FA}\uFE0F Distanza totale: ~4.000 km (Chicago \u2192 Santa Monica)\n\n\u{1F4B0} Costo stimato per persona (gruppo di 6, alta stagione):\n\u2708\uFE0F Volo A/R MXP\u2192ORD + LAX\u2192MXP (open-jaw): ~650 \u20ac\n\uD83D\uDE97 2 auto nol. 15gg (young driver fee $28/gg + CDW): ~500 \u20ac\n\u26FD Carburante 2 auto (~4.200 km): ~160 \u20ac\n\uD83C\uDFDE\uFE0F America the Beautiful Pass 2026 ($250/auto \u00d7 2): ~80 \u20ac\n\uD83C\uDFE8 Alloggio 14 notti (3 camere, motel/hotel): ~640 \u20ac\n\uD83C\uDF54 Vitto 15 giorni: ~590 \u20ac\n\uD83D\uDEE1\uFE0F Assicurazione viaggio completa (Allianz/Unipol, 6pp): ~80 \u20ac\n\uD83D\uDCCA Totale stimato: ~2.700\u20132.900 \u20ac a persona.',
+    desc: 'Da Chicago a Santa Monica lungo la Mother Road: diner retr\u00f2, deserti rossi, insegne al neon e 4.000 km di asfalto leggendario. Lungo il percorso: il Gateway Arch di St. Louis, i ranch texani di Amarillo, Santa Fe, il Grand Canyon, Monument Valley, Horseshoe Bend e Las Vegas prima del gran finale sul Pier di Santa Monica. L\u2019America on the road fatta per davvero.\n\n\u{1F5FA}\uFE0F Distanza totale: ~4.000 km (Chicago \u2192 Santa Monica)\n\n\u{1F4B0} Costo stimato per persona (gruppo di 6, seconda met\u00e0 agosto, 3pp/auto):\n\u2708\uFE0F Volo A/R MXP\u2192ORD + LAX\u2192MXP (open-jaw): ~1.100 \u20ac\n\uD83D\uDE97 2 auto 15gg + carburante (~4.200 km, 3pp/auto): ~700 \u20ac\n\uD83C\uDFDE\uFE0F America the Beautiful Pass 2026 ($250/auto \u00d7 2): ~80 \u20ac\n\uD83C\uDFE8 Alloggio 14 notti (3 camere, motel/hotel): ~550 \u20ac\n\uD83C\uDF54 Vitto 15 giorni: ~400 \u20ac\n\uD83D\uDEE1\uFE0F Assicurazione viaggio completa (Allianz/Unipol, 6pp): ~130 \u20ac\n\uD83D\uDCCA Totale stimato: ~2.960 \u20ac a persona.',
     mapSrc: null,
     mapLink: null,
     itinerary: [
@@ -771,7 +763,7 @@ const DESTINATIONS = [
     ]
   },
   { name: 'USA \u2013 Grandi Parchi',       flag: '\u{1F1FA}\u{1F1F8}', days: 15,
-    desc: 'Las Vegas come base di partenza e punto di ritorno. In mezzo: Zion, Bryce Canyon, Capitol Reef, Canyonlands, Arches, Moab, Monument Valley, Horseshoe Bend e il Grand Canyon. Il meglio dell\u2019altopiano del Colorado in un unico loop da 15 giorni. Niente coste, niente citt\u00e0. Solo canyon, dune e cieli stellati.\n\n\u{1F5FA}\uFE0F Distanza totale: ~2.800 km (loop da Las Vegas)\n\n\u{1F4B0} Costo stimato per persona (gruppo di 6, alta stagione):\n\u2708\uFE0F Volo A/R MXP\u2192LAS (scalo): ~780 \u20ac\n\uD83D\uDE97 2 auto nol. 15gg (young driver fee $28/gg + CDW): ~500 \u20ac\n\u26FD Carburante 2 auto (~2.800 km): ~115 \u20ac\n\uD83C\uDFDE\uFE0F America the Beautiful Pass 2026 ($250/auto \u00d7 2): ~80 \u20ac\n\uD83C\uDFE8 Alloggio 14 notti (3 camere, mix lodge/motel): ~750 \u20ac\n\uD83C\uDF54 Vitto 15 giorni: ~600 \u20ac\n\uD83D\uDEE1\uFE0F Assicurazione viaggio completa (Allianz/Unipol, 6pp): ~80 \u20ac\n\uD83D\uDCCA Totale stimato: ~2.905\u20133.105 \u20ac a persona.',
+    desc: 'Las Vegas come base di partenza e punto di ritorno. In mezzo: Zion, Bryce Canyon, Capitol Reef, Canyonlands, Arches, Moab, Monument Valley, Horseshoe Bend e il Grand Canyon. Il meglio dell\u2019altopiano del Colorado in un unico loop da 15 giorni. Niente coste, niente citt\u00e0. Solo canyon, dune e cieli stellati.\n\n\u{1F5FA}\uFE0F Distanza totale: ~2.800 km (loop da Las Vegas)\n\n\u{1F4B0} Costo stimato per persona (gruppo di 6, seconda met\u00e0 agosto, 3pp/auto):\n\u2708\uFE0F Volo A/R MXP\u2192LAS (scalo): ~1.100 \u20ac\n\uD83D\uDE97 2 auto 15gg + carburante (~2.800 km, 3pp/auto): ~700 \u20ac\n\uD83C\uDFDE\uFE0F America the Beautiful Pass 2026 ($250/auto \u00d7 2): ~80 \u20ac\n\uD83C\uDFE8 Alloggio 14 notti (3 camere, mix lodge/motel): ~550 \u20ac\n\uD83C\uDF54 Vitto 15 giorni: ~400 \u20ac\n\uD83D\uDEE1\uFE0F Assicurazione viaggio completa (Allianz/Unipol, 6pp): ~130 \u20ac\n\uD83D\uDCCA Totale stimato: ~2.960 \u20ac a persona.',
     mapSrc: null,
     mapLink: null,
     itinerary: [
@@ -793,7 +785,7 @@ const DESTINATIONS = [
     ]
   },
   { name: 'USA \u2013 West Coast & Parchi', flag: '\u{1F1FA}\u{1F1F8}', days: 14,
-    desc: 'Los Angeles, San Diego, Joshua Tree, Death Valley, Yosemite, San Francisco e la Highway 1 lungo Big Sur. Il meglio della California in 14 giorni: spiagge, deserti, sequoie e Golden Gate. Un loop che parte e finisce a LAX, tutto su strada, tutto diverso ogni giorno.\n\n\u{1F5FA}\uFE0F Distanza totale: ~3.200 km (loop da Los Angeles)\n\n\u{1F4B0} Costo stimato per persona (gruppo di 6, alta stagione):\n\u2708\uFE0F Volo A/R MXP\u2192LAX: ~720 \u20ac\n\uD83D\uDE97 2 auto nol. 14gg (young driver fee $28/gg + CDW): ~465 \u20ac\n\u26FD Carburante 2 auto (~3.200 km): ~130 \u20ac\n\uD83C\uDFDE\uFE0F America the Beautiful Pass 2026 ($250/auto \u00d7 2): ~80 \u20ac\n\uD83C\uDFE8 Alloggio 13 notti (3 camere, hotel/motel): ~660 \u20ac\n\uD83C\uDF54 Vitto 14 giorni: ~580 \u20ac\n\uD83D\uDEE1\uFE0F Assicurazione viaggio completa (Allianz/Unipol, 6pp): ~75 \u20ac\n\uD83D\uDCCA Totale stimato: ~2.710\u20132.910 \u20ac a persona.',
+    desc: 'Los Angeles, San Diego, Joshua Tree, Death Valley, Yosemite, San Francisco e la Highway 1 lungo Big Sur. Il meglio della California in 14 giorni: spiagge, deserti, sequoie e Golden Gate. Un loop che parte e finisce a LAX, tutto su strada, tutto diverso ogni giorno.\n\n\u{1F5FA}\uFE0F Distanza totale: ~3.200 km (loop da Los Angeles)\n\n\u{1F4B0} Costo stimato per persona (gruppo di 6, seconda met\u00e0 agosto, 3pp/auto):\n\u2708\uFE0F Volo A/R MXP\u2192LAX: ~1.100 \u20ac\n\uD83D\uDE97 2 auto 14gg + carburante (~3.200 km, 3pp/auto): ~700 \u20ac\n\uD83C\uDFDE\uFE0F America the Beautiful Pass 2026 ($250/auto \u00d7 2): ~80 \u20ac\n\uD83C\uDFE8 Alloggio 13 notti (3 camere, hotel/motel): ~550 \u20ac\n\uD83C\uDF54 Vitto 14 giorni: ~400 \u20ac\n\uD83D\uDEE1\uFE0F Assicurazione viaggio completa (Allianz/Unipol, 6pp): ~130 \u20ac\n\uD83D\uDCCA Totale stimato: ~2.960 \u20ac a persona.',
     mapSrc: null,
     mapLink: null,
     itinerary: [
@@ -884,22 +876,6 @@ const DESTINATIONS = [
       'Monaco di Baviera \u2192 Innsbruck \u2192 Brennero \u2192 Toscana (~580 km) \u2013 a casa. Pasta. Si piange di nuovo.',
     ]
   },
-  { name: 'Sudafrica',                  flag: '\u{1F1FF}\u{1F1E6}', days: 12,
-    desc: 'Il Kruger con ranger dedicato e jeep 4x4 in riserva privata, poi Cape Town con Table Mountain, Capo di Buona Speranza e i pinguini di Boulders Beach. 12 giorni, tutto organizzato dall\u2019agenzia: zero logistica, massima esperienza. La giraffa te la aspetti. Il leopardo no.\n\n\u{1F5FA}\uFE0F Spostamenti: voli interni + self-drive nel Kruger\n\n\u{1F4B0} Costo stimato per persona (gruppo di 6, pacchetto agenzia specializzata):\n\u2708\uFE0F Volo A/R MXP\u2192JNB (incluso nel pacchetto): ~880 \u20ac\n\uD83C\uDFD5\uFE0F Safari lodge Kruger 5 notti + riserva privata 2 notti, game drive, ingressi, transfer: ~2.100 \u20ac\n\uD83E\uDD81 Guida ranger certificata + veicolo 4x4 dedicato: incluso\n\uD83C\uDF0D Cape Town 3 notti (volo interno JHB\u2192CPT incluso), hotel 4\u2605: ~580 \u20ac\n\uD83C\uDF7D\uFE0F Pensione completa Kruger; colazioni + cene Cape Town: ~180 \u20ac\n\uD83D\uDC89 Profilassi & vaccini (non incl. nel totale): antimalarica per area Kruger (Malarone ~6\u20ac/g \u00d7 15gg = ~90 \u20ac), epatite A, tifoidea \u2013 nessun vaccino obbligatorio dall\u2019Italia, ma antimalarica fortemente raccomandata.\n\uD83D\uDCCA Totale stimato: ~3.740\u20134.100 \u20ac a persona\n\u26A0\uFE0F Agenzie consigliate: Kel 12, Africa Link, Wilderness Safaris (gruppo 6 = sconto ~5-8%)',
-    itinerary: [
-      'Volo Milano \u2192 Johannesburg \u2013 transfer incluso dall\'agenzia, briefing guida all\'hotel.',
-      'JHB \u2192 Kruger Sud \u2013 minivan privato, ingresso parco, primo game drive al tramonto con ranger certificato.',
-      'Kruger Sud \u2013 alba game drive + sunset game drive. Big Five: leone, elefante, bufalo, leopardo, rinoceronte.',
-      'Kruger Centrale \u2013 spostamento guidato in jeep, game drive in zona meno battuta dai turisti.',
-      'Kruger Centrale \u2013 giornata intera di safari con ranger. Veicolo 4x4 aperto dedicato al gruppo.',
-      'Transfer a riserva privata (Sabi Sands) \u2013 check-in lodge boutique 5\u2605, cena gourmet al tramonto.',
-      'Riserva privata \u2013 alba game drive, relax in lodge, piscina, spa, sunset game drive. Pensione completa.',
-      'Riserva privata \u2013 alba game drive, colazione, volo interno JHB\u2192CPT, hotel 4\u2605 V&A Waterfront Cape Town.',
-      'Cape Town \u2013 Table Mountain (funivia), Bo-Kaap, Boulders Beach pinguini, V&A Waterfront. Guida inclusa.',
-      'Cape Peninsula \u2013 Capo di Buona Speranza, Chapman\'s Peak Drive, Simon\'s Town. Tour organizzato.',
-      'Stellenbosch e Franschhoek \u2013 degustazione vini in cantina boutique, pranzo in vigna incluso.',
-      'Volo Cape Town \u2192 Milano (arrivo giorno seguente \u2013 la notte in aereo conta come giorno 12).',
-    ]
   },
   { name: 'Canada + USA Est',           flag: '\u{1F1E8}\u{1F1E6}\u{1F1FA}\u{1F1F8}', days: 13,
     desc: 'Toronto e le Cascate del Niagara, poi Ottawa, Montr\u00e9al e Qu\u00e9bec City nella parte francofona, e infine la East Coast americana: Boston, il Cape Cod, le comunit\u00e0 Amish, Washington DC, Philadelphia e New York. 13 giorni, 2 nazioni, storia coloniale, grattacieli e una fetta d\u2019America che la gente non si aspetta.\n\n\u{1F5FA}\uFE0F Distanza su strada: ~2.400 km\n\n\u{1F4B0} Costo stimato per persona (gruppo di 6, estate):\n\u2708\uFE0F Volo A/R MXP\u2192YYZ + JFK\u2192MXP (open-jaw): ~680 \u20ac\n\uD83D\uDE97 2 auto nol. 13gg (young driver fee + CDW): ~450 \u20ac\n\u26FD Carburante 2 auto (~2.400 km): ~130 \u20ac\n\uD83C\uDFE8 Alloggio 12 notti (3 camere, mix hotel/motel): ~720 \u20ac\n\uD83C\uDF54 Vitto 13 giorni: ~600 \u20ac\n\uD83D\uDEE1\uFE0F Assicurazione viaggio completa (Allianz/Unipol, 6pp): ~65 \u20ac\n\uD83D\uDCCA Totale stimato: ~2.645\u20132.845 \u20ac a persona.',
@@ -959,47 +935,8 @@ const DESTINATIONS = [
       'Volo Lima \u2192 Italia, arrivo.',
     ]
   },
-  { name: 'Namibia',                     flag: '\u{1F1F3}\u{1F1E6}', days: 15,
-    desc: 'Safari in self-drive nell\u2019Etosha durante la stagione secca: elefanti, leoni e rinoceronti neri che si radunano alle pozze d\u2019acqua in paesaggi lunari. Poi la Skeleton Coast con relitti, colonie di foche e il deserto che incontra l\u2019oceano. Infine Swakopmund sul Namib e le dune rosse di Sossusvlei. Agosto \u00e8 il mese perfetto \u2013 cielo limpido, fauna concentrata, zero pioggia. Il paese pi\u00f9 sparsamente popolato del mondo, tutto su piste di terra rossa.\n\n\u{1F5FA}\uFE0F Distanza su strada: ~3.000 km (in parte sterrato)\n\n\u{1F4B0} Costo stimato per persona (gruppo di 6, agosto):\n\u2708\uFE0F Volo A/R MXP\u2192WDH (Windhoek, scalo): ~1.050 \u20ac\n\uD83D\uDE97 2 auto 4x4 nol. 14gg (CDW incluso): ~780 \u20ac\n\u26FD Carburante 2 auto (~3.000 km): ~180 \u20ac\n\uD83C\uDFE8 Alloggio 14 notti (3 camere, guest house/lodge/camp): ~820 \u20ac\n\uD83C\uDF7D\uFE0F Vitto 15 giorni: ~440 \u20ac\n\uD83C\uDFDE\uFE0F Ingressi parchi (Etosha + Skeleton Coast): ~120 \u20ac\n\uD83D\uDEE1\uFE0F Assicurazione viaggio completa (Allianz/Unipol, 6pp): ~90 \u20ac\n\uD83D\uDC89 Profilassi & vaccini (non incl. nel totale): antimalarica raccomandata per il Nord (Etosha, Damaraland, Skeleton Coast \u2013 Malarone ~6\u20ac/g \u00d7 18gg \u2248 ~110 \u20ac), epatite A, tifoidea. Nessun vaccino obbligatorio dall\u2019Italia.\n\uD83D\uDCCA Totale stimato: ~3.480\u20133.780 \u20ac a persona.',
-    itinerary: [
-      'Volo Italia \u2192 Windhoek (WDH), ritiro delle 2 auto 4x4, check-in in guest house, briefing logistico, prima cena namibiana.',
-      'Windhoek \u2192 Waterberg Plateau (~250 km) \u2013 altopiano arenaria rossa, fauna locale (rinoceronti bianchi, ghepardi), prima notte in lodge.',
-      'Waterberg \u2192 Etosha Sud – Namutoni (~180 km), ingresso nel parco, primo game drive al tramonto: zebre, giraffe, gnu.',
-      'Etosha \u2013 Alba al waterhole di Namutoni: elefanti, leoni, sciacalli. Game drive mattutino e pomeridiano nelle pianure saline.',
-      'Etosha Centrale \u2013 Trasferimento a Halali, game drive notturno al waterhole illuminato artificialmente: rinoceronti neri all\u2019abbeverata.',
-      'Etosha Ovest \u2013 Okaukuejo: waterhole famoso per i rinoceronti neri di notte, tramonto sulle pianure del sale, cielo stellato immenso.',
-      'Etosha \u2192 Damaraland (~250 km) \u2013 uscita dal parco, paesaggi vulcanici rossi, possibile avvistamento degli elefanti del deserto lungo la pista.',
-      'Damaraland \u2013 Twyfelfontein (incisioni rupestri UNESCO, 6.000 anni fa), Organ Pipes, Burnt Mountain, paesaggi marziani.',
-      'Damaraland \u2192 Skeleton Coast (~200 km) \u2013 prime strade di sale bianco, odore di oceano, arrivo ai lodge costieri nel vento atlantico.',
-      'Skeleton Coast \u2013 Cape Cross (colonia di 100.000 foche), relitti di navi arrugginiti sulla riva, deserto che tocca l\u2019oceano, nessun altro in giro.',
-      'Skeleton Coast \u2192 Swakopmund (~200 km) \u2013 citt\u00e0 coloniale tedesca sul Namib, birra e schnitzel affacciati sull\u2019Atlantico.',
-      'Swakopmund \u2013 Sandboard sulle dune del Namib, quad e 4x4 nel deserto, kayak con le colonie di foche al largo, parapendio opzionale.',
-      'Swakopmund \u2192 Sossusvlei / Sesriem (~350 km) \u2013 ingresso nel deserto del Namib, notte a Sesriem con cielo stellato da capogiro.',
-      'Sossusvlei \u2013 Alba a Dune 45 e Big Daddy (325 m, la pi\u00f9 alta), Deadvlei con gli alberi morti da 900 anni tra le dune arancioni, rientro verso Windhoek (~360 km).',
-      'Windhoek \u2013 Mattina libera, souvenir al Craft Centre, volo di rientro per l\u2019Italia.',
-    ]
-  },
-  { name: 'Madagascar',                  flag: '\u{1F1F2}\u{1F1EC}', days: 15,
-    desc: 'La foresta di Andasibe con i lemuri indri che urlano all\u2019alba, il massiccio di pietra dell\u2019Isalo con i canyon e le piscine naturali, e infine Nosy Be con le sue spiagge tropicali, le immersioni e le balene in luglio. Tre paesaggi completamente diversi in un unico viaggio: foresta pluviale, savana desertica e oceano Indiano. Biodiversit\u00e0 unica al mondo \u2013 il 90% delle specie non esiste in nessun\u2019altro posto sulla Terra.\n\n\u{1F5FA}\uFE0F Spostamenti: voli interni + auto con autista\n\n\u{1F4B0} Costo stimato per persona (gruppo di 6, luglio\u2013agosto):\n\u2708\uFE0F Volo A/R MXP\u2192TNR (Antananarivo, scalo): ~950 \u20ac\n\u2708\uFE0F Voli interni TNR\u2192MJN (Nosy Be) + rientro: ~180 \u20ac\n\uD83D\uDE97 Minivan con autista-guida 10gg (imperdibile in Madagascar): ~300 \u20ac\n\uD83C\uDFE8 Alloggio 14 notti (3 camere, lodge/bungalow/hotel): ~680 \u20ac\n\uD83C\uDF7D\uFE0F Vitto 15 giorni: ~380 \u20ac\n\uD83C\uDFDE\uFE0F Ingressi parchi (Andasibe, Mantadia, Isalo + riserve): ~90 \u20ac\n\uD83D\uDEE1\uFE0F Assicurazione viaggio completa con evacuazione medica (obbligatoria): ~90 \u20ac\n\uD83D\uDC89 Profilassi & vaccini (non incl. nel totale \u2013 PRENOTARE PRIMA): antimalarica obbligatoria su tutto il territorio (Malarone ~6\u20ac/g \u00d7 18gg \u2248 ~110 \u20ac); epatite A e B, tifoidea, tetano fortemente raccomandati; vaccino antirabbico consigliato per soggiorni prolungati. Nessun vaccino obbligatorio da normativa, ma la profilassi antimalarica \u00e8 praticamente indispensabile.\n\uD83D\uDCCA Totale stimato: ~2.670\u20132.870 \u20ac a persona.',
-    itinerary: [
-      'Volo Italia \u2192 Antananarivo (TNR), arrivo, trasferimento in hotel, primo contatto con la capitale malgascia.',
-      'Antananarivo \u2192 Andasibe (~150 km, 3h) \u2013 foresta pluviale, prime passeggiate serali per camaleonti e rane fogliacee.',
-      'Andasibe \u2013 Alba nella riserva: indri che cantano (il call pi\u00f9 potente dei primati), sifaka di Milne-Edwards, camaleonti di giorno.',
-      'Parco di Mantadia \u2013 Trekking nella foresta primaria, lemuri marrone, diademed sifaka, orchidee selvatiche, paesaggio primordiale.',
-      'Andasibe \u2192 Antananarivo \u2192 Fianarantsoa (volo o auto lungo giorno, ~400 km) \u2013 altopiani, risaie terrazzate, paesaggi collinari.',
-      'Fianarantsoa \u2192 Isalo (~200 km) \u2013 la savana cede ai primi affioramenti di arenaria rossa, arrivo al parco, cena al lodge con vista.',
-      'Isalo \u2013 Trekking nella Piscine Naturelle (acqua cristallina in un canyon) e Piscine Noire, lemuri catta e sifaka di Verreaux sulle rocce.',
-      'Isalo \u2013 Canyon des Makis e Canyon des Rats: formazioni rocciose surreali, tramonto sui \'finestre\' di pietra. La luce arancione del Sunset.',
-      'Isalo \u2192 Tulear / Ifaty (~150 km) \u2013 discesa verso la costa, prima visione dell\u2019oceano Indiano, baobab lungo la pista.',
-      'Ifaty \u2013 Snorkeling sulla barriera corallina, villaggio di pescatori Vezo, foresta di baobab nel pomeriggio.',
-      'Tulear \u2192 Antananarivo (volo interno) \u2192 Nosy Be (volo) \u2013 arrivo sull\u2019isola tropicale, check-in bungalow, tramonto sul Mar di Mozambico.',
-      'Nosy Be \u2013 Spiaggia di Andilana o Madirokely, mare a 26\u00b0C, snorkeling tra pesci tropicali, relax totale.',
-      'Nosy Be \u2013 Escursione in barca alle isole vicine (Nosy Komba con i lemuri neri sulla spiaggia, Nosy Tanikely riserva marina, tartarughe).',
-      'Nosy Be \u2013 Whale watching (luglio\u2013agosto: balene megattere in migrazione), ultimo snorkeling, cena sul mare.',
-      'Nosy Be \u2013 Mattina libera, volo di rientro per l\u2019Italia via Antananarivo.',
-    ]
-  },
 ];
+
 
 let destIndex    = 0;
 let destRatings  = {};
